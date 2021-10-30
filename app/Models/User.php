@@ -5,12 +5,20 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, HasApiTokens, HasRoles;
+    use Notifiable, HasApiTokens;
+
+    use SpatialTrait;
+
+    protected $spatialFields = [
+        'location',
+    ];
+
+
     protected $guard_name = 'web';
 
     /**
@@ -18,9 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'clock_24', 'time_zone'
-    ];
+    protected $fillable = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -40,21 +46,27 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = ['userable'];
-
-
-
     public function getImageAttribute($value)
     {
         $avatar = '';
         if($value == null){
-            $avatar = "https://ui-avatars.com/api/?name=".$this->name."&size=250";
+            $avatar = "https://ui-avatars.com/api/?name=".str_replace(' ','+',$this->name)."&size=250";
         }else if( strpos($value, 'http') !== false){
             $avatar = $value;
         }else{
             $avatar = asset($value);
         }
         return $avatar;
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notifications::class);
     }
 
     public function getTutor($id)

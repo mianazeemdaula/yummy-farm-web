@@ -36,7 +36,6 @@ Route::post('auth/google/callback', 'Api\AuthController@socialcallback');
 
 
 Route::middleware('auth:sanctum')->group(function(){
-
     // User
     Route::post('auth/update-image', 'Api\AuthController@updateAvatar');
     Route::post('auth/update-profile', 'Api\AuthController@updateProfile');

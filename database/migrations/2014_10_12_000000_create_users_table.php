@@ -18,15 +18,28 @@ class CreateUsersTable extends Migration
             $table->string('social_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('image')->nullable();
             $table->string('fcm_token')->nullable();
+            $table->string('role')->default('customer');
+            //
+            $table->string('firstname')->nullable();
+            $table->string('username')->nullable();
+            $table->string('business_name')->nullable();
+            $table->string('seller_number')->nullable();
+            $table->string('address_one')->nullable();
+            $table->string('address_two')->nullable();
+            $table->point('location')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('vat')->nullable();
+            $table->string('bank_account')->nullable();
+            $table->string('rpr')->nullable();
+            $table->unsignedBigInteger('plan_id')->nullable();
+            $table->boolean('enable_notification')->nullable()->default(true);
             $table->string('status')->default('active');
-            $table->char('language',2)->default('nl');
             $table->rememberToken();
             $table->timestamps();
-            $table->nullableMorphs('userable');
         });
     }
 

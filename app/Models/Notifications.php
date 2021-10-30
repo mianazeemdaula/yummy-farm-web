@@ -33,15 +33,15 @@ class Notifications extends Model
 
 
 
-    public function getNotificationTimeAttribute($date)
-    {
-        return Carbon::parse($date, 'UTC')->setTimezone(auth()->user()->time_zone);
-    }
+    // public function getNotificationTimeAttribute($date)
+    // {
+    //     return Carbon::parse($date, 'UTC')->setTimezone(auth()->user()->time_zone);
+    // }
 
-    public function getCreatedAtAttribute($date)
-    {
-        return Carbon::parse($date, 'UTC')->setTimezone(auth()->user()->time_zone);
-    }
+    // public function getCreatedAtAttribute($date)
+    // {
+    //     return Carbon::parse($date, 'UTC')->setTimezone(auth()->user()->time_zone);
+    // }
 
     // public function getCreatedAtAttribute($value)
     // {

@@ -4,8 +4,14 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
+
+
+"A geopoint"
+scalar GeoPoint @scalar(class: "App\\GraphQL\\Scalars\\GeoPoint")
+scalar JSON @scalar(class: "App\\GraphQL\\Scalars\\JSON")
+
 type Query {
-    users: [User!]! @paginate(defaultCount: 10)
+    users(role: String @where(operate:"=")): [User!]! @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
     me: User @auth(guard: "sanctum")
 
@@ -13,15 +19,49 @@ type Query {
     instrument(id: ID @eq): Instrument @find
 }
 
+type Plan{
+    id: ID!
+    name: String!
+    users: [User!]! @hasMany
+}
+
 type User {
     id: ID!
     name: String!
     email: String!
+    image: String!
+    fcm_token: String
+    role: String!
+    firstname: String
+    username: String
+    business_name: String
+    number: String @rename(attribute: "seller_number")
+    address_one: String
+    address_two: String
+    phone: String
+    vat: String
+    bank_account: String
+    rpr: String
+    enable_notification: Boolean
+    status: String
+    location: GeoPoint
     created_at: DateTime!
     updated_at: DateTime!
-    userable: Userable! @morphTo
-    instruments: [Instrument!]! @hasMany
-    times: [TutorTime!]! @hasMany(relation:"tutorTimes")
+    plan: Plan @belongsTo
+    # userable: Userable! @morphTo
+    notifications: [Notification] @hasMany
+    # times: [TutorTime!]! @hasMany(relation:"tutorTimes")
+}
+
+type Notification{
+    id: ID!
+    title: String!
+    body: String!
+    is_read: Boolean!
+    data: JSON
+    created_at: DateTime!
+    updated_at: DateTime!
+    user: User! @belongsTo
 }
 
 type Student{
@@ -32,7 +72,7 @@ type Student{
     user: User! @morphOne
 }
 
-type Tutor{
+type Seller{
     id: ID!
     bio: String!
     in_search: Boolean
@@ -41,6 +81,8 @@ type Tutor{
     updated_at: DateTime!
     user: User! @morphOne
 }
+
+
 
 
 type Instrument{
@@ -59,4 +101,4 @@ type TutorTime{
 }
 
 
-union Userable = Student | Tutor
+union Userable = Customer | Seller

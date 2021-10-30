@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('ingredientunit','IngredientUnitController');
     Route::resource('ingredientcategory','IngredientCategoryController');
 
-    Route::middleware(['role:super-admin'])->group(function () {
+    Route::middleware(['role:admin'])->group(function () {
         Route::prefix('admin')->group(function () {
             //Route::resource('role','RoleController');
             // Route::resource('permission','PermissionController');

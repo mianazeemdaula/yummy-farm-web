@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('ProductPackaging', 100)->nullable()->default('text');
             $table->string('ProductDetail', 100)->nullable()->default('text');
             $table->string('ProductSpecies', 100)->nullable()->default('text');
-            $table->unsignedInteger('ProductAge')->nullable()->default(0);
+            $table->integer('ProductAge')->nullable()->default(0);
             $table->string('ProductBio')->nullable()->default('text');
             $table->string('ProductGrassfed', 100)->nullable()->default('text');
             $table->string('ProductLifestyle', 100)->nullable()->default('text');
@@ -33,7 +33,7 @@ class CreateProductsTable extends Migration
             $table->tinyInteger('ProductDeliveryday')->default(1);
             $table->string('ProductDeliverytime', 100)->nullable()->default('text');
             $table->string('ProductExtrainfo', 100)->nullable()->default('text');
-            $table->unsingedInteger('ProductStock')->default(0);
+            $table->integer('ProductStock')->default(0);
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('seller_id');
+            $table->char('status',20)->default('open');
             $table->timestamps();
         });
     }
