@@ -10,10 +10,15 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 scalar GeoPoint @scalar(class: "App\\GraphQL\\Scalars\\GeoPoint")
 scalar JSON @scalar(class: "App\\GraphQL\\Scalars\\JSON")
 
+
 type Query {
     users(role: String @where(operate:"=")): [User!]! @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
     me: User @auth(guard: "sanctum")
+
+    test(role: String @eq, email: String @eq): [User!]! @all
+
+    nearestSellers(role: String, lat: Float, lng: Float) : [User!]
 
     # instruments
     instrument(id: ID @eq): Instrument @find
