@@ -17,6 +17,10 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('seller_id');
+            $table->enum('delivery_method', ['take_away', 'delivery'])->nullable()->default('take_away');
+            $table->string('delivery_address');
+            $table->dateTime('delivery_time');
+            $table->string('extra_note');
             $table->char('status',20)->default('open');
             $table->timestamps();
         });

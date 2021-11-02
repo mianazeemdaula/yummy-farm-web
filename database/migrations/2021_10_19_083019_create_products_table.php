@@ -15,25 +15,25 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('SellerId');
-            $table->unsignedBigInteger('ProductCategoryId');
-            $table->string('ProductPackaging', 100)->nullable()->default('text');
-            $table->string('ProductDetail', 100)->nullable()->default('text');
-            $table->string('ProductSpecies', 100)->nullable()->default('text');
-            $table->integer('ProductAge')->nullable()->default(0);
-            $table->string('ProductBio')->nullable()->default('text');
-            $table->string('ProductGrassfed', 100)->nullable()->default('text');
-            $table->string('ProductLifestyle', 100)->nullable()->default('text');
-            $table->string('ProductContent', 100)->nullable()->default('text');
-            $table->integer('ProductPieces')->default(1);
-            $table->double('ProductTotalWeight')->default(0.0);
-            $table->string('ProductpriceexclVAT', 100)->nullable()->default('text');
-            $table->string('ProductName', 100)->nullable()->default('text');
-            $table->string('ProductDeliverymethod', 100)->nullable()->default('text');
-            $table->tinyInteger('ProductDeliveryday')->default(1);
-            $table->string('ProductDeliverytime', 100)->nullable()->default('text');
-            $table->string('ProductExtrainfo', 100)->nullable()->default('text');
-            $table->integer('ProductStock')->default(0);
+            $table->unsignedBigInteger('seller_id');
+            $table->unsignedBigInteger('product_category_id');
+            $table->string('packaging', 100)->nullable()->default('text');
+            $table->string('detail', 100)->nullable();
+            $table->string('species', 100)->nullable();
+            $table->integer('age')->nullable()->default(0);
+            $table->string('bio')->nullable();
+            $table->string('grass_fed', 100)->nullable()->default('text');
+            $table->string('lifestyle', 100)->nullable()->default('text');
+            $table->text('content')->nullable();
+            $table->integer('pieces')->default(1);
+            $table->double('total_weight')->default(0.0);
+            $table->double('priceexclVAT', 100)->default(0.0);
+            $table->string('name', 100);
+            $table->string('part', 100);
+            $table->enum('delivery_method', ['take_away', 'delivery'])->nullable()->default('take_away');
+            $table->dateTime('delivery_time', 100)->nullable();
+            $table->string('extra_info', 100)->nullable();
+            $table->integer('stock')->default(0);
             $table->timestamps();
         });
     }
