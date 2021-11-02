@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('social_id')->nullable();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->timestamp('email_verified_at')->nullable();
@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->string('rpr')->nullable();
             $table->unsignedBigInteger('plan_id')->nullable();
             $table->boolean('enable_notification')->nullable()->default(true);
-            $table->string('status')->default('active');
+            $table->string('status')->default('incomplete');
             $table->rememberToken();
             $table->timestamps();
         });

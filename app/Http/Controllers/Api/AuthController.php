@@ -27,7 +27,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'password' => 'required|min:6',
             'email' => 'required|email|unique:users,email',
-            'name' => 'required|string|min:4|max:150',
+            // 'name' => 'required|string|min:4|max:150',
         ]);
         if ($validator->fails()) {
             return response()->json(['required' => $validator->errors()->first()], 200);
@@ -35,29 +35,11 @@ class AuthController extends Controller
             $user = new User;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
-            $user->name = $request->name;
-            $user->time_zone = $request->time_zone;
+            // $user->name = $request->name;
+            $user->role = $request->role;
             $user->save();
-            if ($request->tutor == true) {
-                $user->assignRole('tutor');
-                $tutor = new Tutor();
-                $tutor->bio = '';
-                $tutor->in_search = false;
-                $tutor->save();
-                $tutor->user()->save($user);
-                $user->status = 'incomplete';
-                $user->save();
-                $token = $user->createToken('Auth Token')->plainTextToken;
-                $user = $user->getTutor($user->id);
-                return response()->json(['token' => $token, 'user' => $user], 200);
-            } else {
-                $user->assignRole('student');
-                $student = new Student();
-                $student->save();
-                $student->user()->save($user);
-                $token = $user->createToken('Auth Token')->plainTextToken;
-                return response()->json(['token' => $token, 'user' => $user], 200);
-            }
+            $token = $user->createToken('Auth Token')->plainTextToken;
+            return response()->json(['token' => $token, 'user' => $user], 200);
         }
     }
     public function login(Request $request)
@@ -81,8 +63,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = User::where('email', $request->email)->first();
             $token = $user->createToken('Auth Token')->plainTextToken;
-            if ($user->hasRole('tutor'))
-                $user = $user->getTutor($user->id);
             return response()->json(['token' => $token, 'user' => $user], 200);
         }
         return response()->json(['messasge' => 'Wrong credientals'], 204);;
@@ -106,11 +86,6 @@ class AuthController extends Controller
                 $authUser->social_id = $user->id;
                 $authUser->email_verified_at = Carbon::now();
                 $authUser->image = $user->getAvatar();
-                $authUser->save();
-                $authUser->assignRole('student');
-                $student = new Student();
-                $student->save();
-                $student->user()->save($authUser);
                 Auth::login($authUser);
                 $token = $authUser->createToken('Auth Token')->plainTextToken;
                 return response()->json(['token' => $token, 'user' => $authUser], 200);
@@ -151,8 +126,6 @@ class AuthController extends Controller
             $user->image = $name;
         }
         $user->save();
-        if ($user->hasRole('tutor'))
-            $user = $user->getTutor($user->id);
         return response()->json(['status' => true, 'data' => $user], 200);
     }
 
@@ -164,57 +137,10 @@ class AuthController extends Controller
             if ($request->has('fcm_token')) {
                 $user->fcm_token = $request->fcm_token;
             }
-            if ($request->has('in_search')) {
-                $user->userable()->update(['in_search' => $request->in_search]);
-            }
-            if ($request->has('clock_24')) {
-                $user->clock_24 = $request->clock_24;
-            }
-            if ($request->has('time_zone')) {
-                $user->time_zone = $request->time_zone;
-            }
             $user->save();
-            if($isTutor){
-                $user = $user->getTutor($user->id);
-            }else{
-                $user = User::find($user->id);
-            }
             return response()->json(['status' => true, 'data' => $user], 200);
         } catch (Exception $ex) {
             return response()->json(['messasge' => $ex], 500);
-        }
-    }
-
-    public function saveAsTutor(Request $request)
-    {
-        try {
-            $validator = Validator::make($request->all(), [
-                'instruments' => 'required',
-                // 'categories' => 'required',
-                'bio' => 'required|string|min:4',
-            ]);
-            if ($validator->fails()) {
-                return response()->json(['required' => $validator->errors()->first()], 200);
-            }
-            $user = $request->user();
-            if ($request->has('video_url') && $request->video_url != null) {
-                $video = new TutorVideos;
-                $video->url = $request->video_url;
-                $video->tutor_id = $user->id;
-                $video->save();
-            }
-            $user->status = 'active';
-            $user->save();
-            $user->userable()->update(['bio' => $request->bio]);
-            // $user->instrumentCats()->sync($request->categories);
-            $user->instruments()->sync($request->instruments);
-            if($user->has('languages')){
-                $user->languages()->sync($request->languages);
-            }
-            $user = $user->getTutor($user->id);
-            return response()->json(['status' => true, 'data' => $user], 200);
-        } catch (Exception $ex) {
-            return response()->json(['status' => $ex], 500);
         }
     }
 

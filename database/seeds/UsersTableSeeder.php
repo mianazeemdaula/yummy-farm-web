@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'superadmin@gmail.com',
             'password' => Hash::make('password'),
             'role' => 'super-admin',
+            'status' => 'active',
         ]);
 
         $admin = User::create([
@@ -28,6 +29,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
             'role' => 'admin',
+            'status' => 'active',
         ]);
 
         $user = User::create([

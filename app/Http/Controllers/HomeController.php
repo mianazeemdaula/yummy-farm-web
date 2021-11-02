@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Instrument;
-use App\Models\InstrumentCategory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,8 +25,8 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::count();
-        $instruments  = Instrument::count();
-        $categories  = InstrumentCategory::count();
+        $instruments  = 0;
+        $categories  = 0;
         $lessions = 0;
         return view('home', compact('users', 'instruments', 'categories', 'lessions'));
     }

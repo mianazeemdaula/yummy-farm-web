@@ -31,7 +31,7 @@ class CreateProductsTable extends Migration
             $table->string('name', 100);
             $table->string('part', 100);
             $table->enum('delivery_method', ['take_away', 'delivery'])->nullable()->default('take_away');
-            $table->dateTime('delivery_time', 100)->nullable();
+            $table->dateTime('delivery_time')->nullable();
             $table->string('extra_info', 100)->nullable();
             $table->integer('stock')->default(0);
             $table->timestamps();
