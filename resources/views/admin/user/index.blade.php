@@ -39,9 +39,7 @@
                                     <td> <img src="{{ $item->image}}" width="40" alt="" srcset=""> </td>
                                     <td> {{ $item->name}} </td>
                                     <td> {{ $item->email}} </td>
-                                    <td> @isset($item->getRoleNames()[0])
-                                            {{ $item->getRoleNames()[0] }}
-                                        @endisset</td>
+                                    <td> {{ $item->role}} </td>
                                     <td> {{ $item->updated_at}} </td>
                                     <td>
                                       <div class="btn-group">
