@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inbox extends Model
 {
-    public function tutor()
+    public function seller()
     {
-        return $this->belongsTo(User::class,'tutor_id');
+        return $this->belongsTo(User::class,'seller_id');
     }
 
-    public function student()
+    public function customer()
     {
-        return $this->belongsTo(User::class,'student_id');
+        return $this->belongsTo(User::class,'customer_id');
     }
 }

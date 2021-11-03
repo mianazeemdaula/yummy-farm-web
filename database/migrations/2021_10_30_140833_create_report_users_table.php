@@ -15,8 +15,8 @@ class CreateReportUsersTable extends Migration
     {
         Schema::create('report_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('seller_id');
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('report_by');
+            $table->unsignedBigInteger('report_to');
             $table->string('comment');
             $table->timestamps();
             $table->foreign('seller_id')->references('id')->on('users');
