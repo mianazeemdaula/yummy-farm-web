@@ -16,10 +16,10 @@ class CreateMeatProductsTable extends Migration
         Schema::create('meat_products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
-            $table->integer('age')->nullable()->default(0);
-            $table->boolean('lifestyle')->nullable()->default(0);
-            $table->text('content')->nullable()->nullable();
-            $table->boolean('grass_fed')->nullable()->default(0);
+            $table->integer('age')->default(0);
+            $table->boolean('lifestyle')->default(true);
+            $table->text('content')->nullable();
+            $table->boolean('grass_fed')->default(true);
             $table->string('part', 100);
 
             $table->timestamps();
