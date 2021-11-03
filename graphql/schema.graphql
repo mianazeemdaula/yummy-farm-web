@@ -22,6 +22,14 @@ type Query {
 
     # instruments
     instrument(id: ID @eq): Instrument @find
+
+    # category
+    categories: [ProductCategory]! @all
+    category(id: ID @eq): ProductCategory @find
+
+    # product
+    products: [Product]! @all
+    product(id: ID @eq): Product @find
 }
 
 type Plan{
@@ -56,6 +64,43 @@ type User {
     # userable: Userable! @morphTo
     notifications: [Notification] @hasMany
     # times: [TutorTime!]! @hasMany(relation:"tutorTimes")
+}
+
+type ProductCategory{
+    id: ID!
+    name: String!
+    supercategory: ProductCategory @hasOne
+    products : [Product] @hasMany
+}
+
+type Product{
+    id: ID!
+    name: String!
+    species: String!
+    bio: Boolean!
+    package: Boolean!
+    detail: String!
+    priceexclVAT: Float!
+    created_at: DateTime!
+    updated_at: DateTime!
+    category: ProductCategory! @belongsTo
+    seller: User! @belongsTo
+    meat: MeatProduct @hasOne
+}
+
+
+type MeatProduct{
+    id: ID!
+    product_id: Integer!
+    age: int!
+    lifestyle: Boolean!
+    content: String!
+    grass_fed: Boolean!
+    part: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    category: ProductCategory! @belongsTo
+    seller: User! @belongsTo
 }
 
 type Notification{

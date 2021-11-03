@@ -21,8 +21,8 @@ class CreateProductsTable extends Migration
             $table->string('species', 100)->nullable();
             $table->boolean('bio')->default(false);
             $table->double('priceexclVAT', 100)->default(0.0); //should be unit price
-            $table->boolean('isPackage')->default(false); //can also be used for identifying packages
-            $table->string('product_detail', 200)->default('text');  // it will serve as either individual product description or package description
+            $table->boolean('package')->default(false); //can also be used for identifying packages
+            $table->string('detail', 200)->default('text');  // it will serve as either individual product description or package description
 
             //stock is derivable
 
@@ -36,7 +36,7 @@ class CreateProductsTable extends Migration
 
             $table->foreign('seller_id')
                 ->references('id')
-                ->on('sellers')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

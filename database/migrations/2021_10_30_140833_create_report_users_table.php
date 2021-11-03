@@ -19,8 +19,8 @@ class CreateReportUsersTable extends Migration
             $table->unsignedBigInteger('report_to');
             $table->string('comment');
             $table->timestamps();
-            $table->foreign('seller_id')->references('id')->on('users');
-            $table->foreign('customer_id')->references('id')->on('users');
+            $table->foreign('report_by')->references('id')->on('users');
+            $table->foreign('report_to')->references('id')->on('users');
         });
     }
 
