@@ -19,9 +19,8 @@ class CreateOrderDetailsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('seller_id');
             $table->enum('delivery_method', ['take_away', 'delivery'])->nullable()->default('take_away');
-            $table->string('delivery_address');
             $table->dateTime('delivery_time');
-            $table->unsignedInteger('qty'); //or package size
+            $table->unsignedInteger('qty');
             $table->timestamps();
         });
     }
