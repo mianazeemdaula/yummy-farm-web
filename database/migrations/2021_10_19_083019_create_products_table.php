@@ -19,10 +19,11 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('product_category_id');
             $table->unsignedBigInteger('product_subcategory_id');
             $table->unsignedBigInteger('seller_id');
-
             $table->string('species', 100)->nullable();
-            $table->boolean('bio')->nullable()->default(0);
+            $table->boolean('bio')->default(false);
             $table->double('priceexclVAT', 100)->default(0.0); //should be unit price
+
+            // package as a single item but with specification
 
             // $table->string('packaging', 100)->nullable()->default('text');
             // $table->string('detail', 100)->nullable();

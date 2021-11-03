@@ -18,6 +18,8 @@ class CreateProductSubCategoriesTable extends Migration
             $table->string('name', 100)->unique();
             $table->timestamps();
         });
+
+        // putting manullay
     }
 
     /**
