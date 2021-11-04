@@ -37,9 +37,19 @@ class UsersTableSeeder extends Seeder
             'email' => 'seller@gmail.com',
             'password' => Hash::make('password'),
             'role' => 'seller',
-            'location' => new Point(40.7484404, -73.9878441),
+            'location' => new Point(30.671456, 73.656468),
             'seller_number' => 'A5650VV',
             'plan_id' => 1,
+            'fcm_token' => 'fcm_token',
+            'firstname' => 'firstname',
+            'username' => 'username',
+            'business_name' => 'business_name',
+            'address_one' => 'address_one',
+            'address_two' => 'address_two',
+            'phone' => 'phone',
+            'vat' => 'vat',
+            'bank_account' => 'bank_account',
+            'rpr' => 'rpr',
         ]);
 
         $user = User::create([
