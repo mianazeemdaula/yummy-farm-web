@@ -38,6 +38,8 @@ class AuthController extends Controller
             // $user->name = $request->name;
             $user->role = $request->role;
             $user->save();
+            $user->tokens()->delete();
+            $user = User::find($user->id);
             $token = $user->createToken('Auth Token')->plainTextToken;
             return response()->json(['token' => $token, 'user' => $user], 200);
         }
@@ -62,6 +64,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = User::where('email', $request->email)->first();
+            $user->tokens()->delete();
             $token = $user->createToken('Auth Token')->plainTextToken;
             return response()->json(['token' => $token, 'user' => $user], 200);
         }
@@ -77,6 +80,7 @@ class AuthController extends Controller
             $authUser = User::where('email', $user->getEmail())->first();
             if ($authUser) {
                 Auth::login($authUser);
+                $authUser->tokens()->delete();
                 $token = $authUser->createToken('Auth Token')->plainTextToken;
                 return response()->json(['token' => $token, 'user' => $authUser], 200);
             } else {
@@ -87,6 +91,7 @@ class AuthController extends Controller
                 $authUser->email_verified_at = Carbon::now();
                 $authUser->image = $user->getAvatar();
                 Auth::login($authUser);
+                $authUser->tokens()->delete();
                 $token = $authUser->createToken('Auth Token')->plainTextToken;
                 return response()->json(['token' => $token, 'user' => $authUser], 200);
             }
