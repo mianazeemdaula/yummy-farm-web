@@ -52,12 +52,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        if($user->hasRole('tutor')){
-            $user = $user->getTutor($user->id);
-        }
         $data['user'] = $user;
-        $data['instruments'] = Instrument::all();
-        $data['languages'] = Language::all();
         return response()->json(['status' => true, 'data' => $data]);
     }
 
