@@ -44,11 +44,11 @@ class UsersTableSeeder extends Seeder
             'firstname' => 'firstname',
             'username' => 'username',
             'business_name' => 'business_name',
-            'address_one' => 'address_one',
-            'address_two' => 'address_two',
+            'address' => 'address_one',
+            'country' => 'UK',
             'phone' => 'phone',
             'vat' => 'vat',
-            'bank_account' => 'bank_account',
+            'bank_account' => '0156565895',
             'rpr' => 'rpr',
         ]);
 

@@ -28,11 +28,12 @@ class CreateUsersTable extends Migration
             $table->string('username')->nullable();
             $table->string('business_name')->nullable();
             $table->string('seller_number')->nullable();
-            $table->string('address_one')->nullable();
-            $table->string('address_two')->nullable();
+            $table->string('address')->nullable();
+            $table->string('country')->nullable();
             $table->point('location')->nullable();
             $table->string('phone')->nullable();
             $table->string('vat')->nullable();
+            $table->string('bank_name')->nullable();
             $table->string('bank_account')->nullable();
             $table->string('rpr')->nullable();
             $table->unsignedBigInteger('plan_id')->nullable();
