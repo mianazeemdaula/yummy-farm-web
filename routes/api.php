@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('auth/update-image', 'Api\AuthController@updateAvatar');
     Route::post('auth/update-profile', 'Api\AuthController@updateProfile');
     Route::post('auth/update-tutor', 'Api\AuthController@saveAsTutor');
-    Route::post('auth/user', 'Api\AuthController@user');
+    Route::get('auth/user', 'Api\AuthController@user');
     Route::resource('user', 'Api\UserController');
     Route::resource('tutor', 'Api\TutorController');
     Route::get('workinghours', 'Api\UserController@teachingHours');
