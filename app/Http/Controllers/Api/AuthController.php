@@ -175,4 +175,11 @@ class AuthController extends Controller
         }
     }
 
+    public function user(Request $request)
+    {
+        $user = User::find($request->user()->id);
+        $data['user'] = $user;
+        return response()->json(['status' => true, 'data' => $data]);
+    }
+
 }
