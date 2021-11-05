@@ -138,11 +138,35 @@ class AuthController extends Controller
     {
         try {
             $user = $request->user();
-            $isTutor = $user->hasRole('tutor');
             if ($request->has('fcm_token')) {
                 $user->fcm_token = $request->fcm_token;
             }
+            if ($request->has('name')) {
+                $user->name = $request->name;
+            }if ($request->has('business_name')) {
+                $user->business_name = $request->business_name;
+            }
+            if ($request->has('firstname')) {
+                $user->firstname = $request->firstname;
+            }if ($request->has('username')) {
+                $user->username = $request->username;
+            }if ($request->has('address')) {
+                $user->address = $request->address;
+            }if ($request->has('country')) {
+                $user->country = $request->country;
+            }if ($request->has('phone')) {
+                $user->phone = $request->phone;
+            }if ($request->has('vat')) {
+                $user->vat = $request->vat;
+            }if ($request->has('bank_account')) {
+                $user->bank_account = $request->bank_account;
+            }if ($request->has('rpr')) {
+                $user->rpr = $request->rpr;
+            }if ($request->has('status')) {
+                $user->status = $request->status;
+            }
             $user->save();
+            $user = User::find($user->id);
             return response()->json(['status' => true, 'data' => $user], 200);
         } catch (Exception $ex) {
             return response()->json(['messasge' => $ex], 500);
