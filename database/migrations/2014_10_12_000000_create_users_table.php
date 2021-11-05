@@ -38,6 +38,7 @@ class CreateUsersTable extends Migration
             $table->string('rpr')->nullable();
             $table->unsignedBigInteger('plan_id')->nullable();
             $table->boolean('enable_notification')->nullable()->default(true);
+            $table->string('description')->nullable();
             $table->string('status')->default('incomplete');
             $table->rememberToken();
             $table->timestamps();

@@ -164,6 +164,8 @@ class AuthController extends Controller
                 $user->rpr = $request->rpr;
             }if ($request->has('status')) {
                 $user->status = $request->status;
+            }if ($request->has('description')) {
+                $user->description = $request->description;
             }
             $user->save();
             $user = User::find($user->id);
