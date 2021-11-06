@@ -66,7 +66,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('favourite', 'Api\FavouriteController');
 
     // Tutor Videos
-    Route::resource('videos', 'Api\VideoController');
+    Route::resource('products', 'Api\ProductController');
 
     // Libaries
     Route::resource('library', 'Api\LibraryController');

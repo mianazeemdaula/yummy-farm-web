@@ -85,14 +85,14 @@ type Product{
     updated_at: DateTime!
     category: ProductCategory! @belongsTo
     seller: User! @belongsTo
-    meat: MeatProduct @hasOne
+    meat: MeatProduct @hasOne(relation:"meat")
 }
 
 
 type MeatProduct{
     id: ID!
     product_id: Integer!
-    age: int!
+    age: Int!
     lifestyle: Boolean!
     content: String!
     grass_fed: Boolean!
