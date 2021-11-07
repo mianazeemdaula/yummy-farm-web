@@ -19,11 +19,17 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('product_category_id');
             $table->unsignedBigInteger('seller_id');
             $table->string('species', 100)->nullable();
+            $table->string('kind', 100)->nullable();
             $table->boolean('bio')->default(false);
-            $table->double('priceexclVAT', 100)->default(0.0); //should be unit price
-            $table->boolean('package')->default(false); //can also be used for identifying packages
+            $table->double('price_incl_vat')->default(0.0);
+            $table->double('price_excl_vat')->default(0.0);
+            $table->double('delivery_charges')->default(0.0);
+            $table->double('weight')->default(0.0);
+            $table->enum('delivery_type', ['take away', 'delivery'])->default('take away');
+            $table->dateTime('delivery_date')->nullable();
+            // $table->boolean('package')->default(false); //can also be used for identifying packages
             $table->string('detail', 200)->default('text');  // it will serve as either individual product description or package description
-
+            $table->unsignedBigInteger('parent')->nullable();
             //stock is derivable
 
             $table->timestamps();

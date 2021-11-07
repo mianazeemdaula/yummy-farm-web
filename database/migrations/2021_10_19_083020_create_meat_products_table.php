@@ -19,9 +19,8 @@ class CreateMeatProductsTable extends Migration
             $table->integer('age')->default(0);
             $table->boolean('lifestyle')->default(true);
             $table->text('content')->nullable();
+            $table->string('bory_part', 100);
             $table->boolean('grass_fed')->default(true);
-            $table->string('part', 100);
-
             $table->timestamps();
         });
     }

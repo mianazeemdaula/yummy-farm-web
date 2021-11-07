@@ -11,9 +11,14 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
         'product_category_id' => $this->faker->numberBetween(1, 5),
         'seller_id' => 3,
         'species' => $this->faker->sentence(3),
+        'kind' => $this->faker->sentence(3),
         'bio' => $this->faker->boolean(),
-        'priceexclVAT' => $this->faker->randomFloat(2),
-        'package' => $this->faker->boolean(),
+        'price_incl_vat' => $this->faker->randomFloat(2),
+        'price_excl_vat' => $this->faker->randomFloat(2),
+        'delivery_charges' => $this->faker->randomFloat(2),
+        'weight' => $this->faker->randomFloat(2),
+        'delivery_date' => $this->faker->dateTime(),
+        // 'package' => $this->faker->boolean(),
         'detail' => $this->faker->realText(),
     ];
 });
