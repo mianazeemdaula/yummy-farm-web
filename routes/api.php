@@ -41,31 +41,17 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('auth/update-profile', 'Api\AuthController@updateProfile');
     Route::post('auth/update-tutor', 'Api\AuthController@saveAsTutor');
     Route::get('auth/user', 'Api\AuthController@user');
-    Route::resource('user', 'Api\UserController');
-    Route::resource('tutor', 'Api\TutorController');
-    Route::get('workinghours', 'Api\UserController@teachingHours');
-    // Tutor Time
-    Route::resource('tutorTime', 'Api\TutorTimeController');
-
-    // Instruments
-    Route::resource('instrument', 'Api\InstrumentController');
-    Route::get('instrument-latest', 'Api\InstrumentController@getLatest');
-
-    // Lessions
-    Route::resource('lession', 'Api\LessionController');
-    Route::post('lession-add-note', 'Api\LessionController@addNote');
-    Route::post('lession/add-music-sheet', 'Api\LessionController@addMusicSheet');
-    Route::post('lession/add-video', 'Api\LessionController@addVideo');
-    Route::post('lession-send-review', 'Api\LessionController@submitReview');
-    Route::post('lession-update-sheets', 'Api\LessionController@updateMusicSheets');
 
     // Reporting Tutors
-    Route::resource('report-tutor', 'Api\ReportUserController');
+    Route::resource('report-user', 'Api\ReportUserController');
 
     // Favourite
     Route::resource('favourite', 'Api\FavouriteController');
 
     // Tutor Videos
+    Route::get('productcats', function(){
+        return \App\Models\ProductCategory::all();
+    });
     Route::resource('products', 'Api\ProductController');
 
     // Libaries

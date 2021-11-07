@@ -15,19 +15,7 @@ Auth::routes(['register' => false, 'verify' => true]);
 
 Route::get('data', function(){
 
-    $users = \App\Models\User::find(3);
-    // return Lession::join('lession_logs','lession_logs.lession_id', '=', 'lessions.id')
-    // ->join('users','lessions.student_id', '=', 'users.id')
-    // ->groupBy('lessions.id','users.name')
-    // ->where('lessions.tutor_id', 3)
-    // ->get(['lessions.id','users.name',\DB::raw('SUM(TIMESTAMPDIFF(MINUTE,start_time,end_time) / 60) as value')]);
-    // $lession = Notifications::find(1);
-    // return Fcm::sendNotification($lession);
-    // return Lession::whereDate('start_date','>=', Carbon::now())->whereDate('end_date', '>=', Carbon::now())->get()->pluck('id');
-    // return $users->instrumentFavorite;
-    // return view('welcome') ;
-
-    return $users->activeStudents;
+    return \App\Models\ProductCategory::all();
 });
 
 Route::middleware(['auth'])->group(function () {

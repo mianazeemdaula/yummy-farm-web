@@ -14,7 +14,7 @@ use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Password;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
-use App\Models\Tutor;
+use App\Models\ProductCategory;
 use App\Models\Student;
 use App\Models\TutorVideos;
 
@@ -179,6 +179,9 @@ class AuthController extends Controller
     {
         $user = User::find($request->user()->id);
         $data['user'] = $user;
+        if($user->role == 'seller'){
+            $data['categories'] = ProductCategory::all();
+        }
         return response()->json(['status' => true, 'data' => $data]);
     }
 
