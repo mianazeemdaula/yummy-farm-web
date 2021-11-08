@@ -43,7 +43,7 @@ class ProductController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'category_id' => 'required|email|string',
+                    'category_id' => 'required|integer',
                     'name' => 'required|string|min:4',
                     'species' => 'required|string',
                     // 'kind' => 'required|string',
