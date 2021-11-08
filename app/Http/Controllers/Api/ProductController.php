@@ -46,7 +46,7 @@ class ProductController extends Controller
                     'category_id' => 'required|email|string',
                     'name' => 'required|string|min:4',
                     'species' => 'required|string',
-                    'kind' => 'required|string',
+                    // 'kind' => 'required|string',
                     'bio' => 'required',
                     'price_incl_vat' => 'required',
                     'price_excl_vat' => 'required',
