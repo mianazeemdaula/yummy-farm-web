@@ -19,6 +19,6 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
         'weight' => $this->faker->randomFloat(2),
         'delivery_date' => $this->faker->dateTime(),
         // 'package' => $this->faker->boolean(),
-        'detail' => $this->faker->realText(),
+        'extra_info' => $this->faker->realText(),
     ];
 });
