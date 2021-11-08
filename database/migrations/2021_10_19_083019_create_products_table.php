@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->double('price_incl_vat')->default(0.0);
             $table->double('price_excl_vat')->default(0.0);
             $table->double('delivery_charges')->default(0.0);
+            $table->integer('stock')->default(1);
             $table->double('weight')->default(0.0);
             $table->enum('delivery_type', ['take away', 'delivery'])->default('take away');
             $table->dateTime('delivery_date')->nullable();
