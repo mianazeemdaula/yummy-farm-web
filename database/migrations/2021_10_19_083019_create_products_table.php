@@ -28,8 +28,7 @@ class CreateProductsTable extends Migration
             $table->double('weight')->default(0.0);
             $table->enum('delivery_type', ['take away', 'delivery'])->default('take away');
             $table->dateTime('delivery_date')->nullable();
-            // $table->boolean('package')->default(false); //can also be used for identifying packages
-            $table->string('detail', 200)->default('text');  // it will serve as either individual product description or package description
+            $table->string('extra_info', 200)->nullable();
             $table->unsignedBigInteger('parent')->nullable();
             //stock is derivable
 

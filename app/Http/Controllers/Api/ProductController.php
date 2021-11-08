@@ -69,7 +69,7 @@ class ProductController extends Controller
             $product->delivery_charges = $request->delivery_charges;
             $product->stock = $request->stock;
             $product->weight = $request->weight;
-            $product->detail = $request->detail;
+            $product->extra_info = $request->extra_info;
             $product->save();
             return response()->json(['status' => true, 'data' => $product]);
         } catch (Exception $e) {
