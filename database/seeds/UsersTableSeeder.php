@@ -50,6 +50,7 @@ class UsersTableSeeder extends Seeder
             'vat' => 'vat',
             'bank_account' => '0156565895',
             'rpr' => 'rpr',
+            'status' => 'inactive'
         ]);
 
         $user = User::create([
