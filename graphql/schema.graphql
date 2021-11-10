@@ -66,11 +66,11 @@ type User {
     # times: [TutorTime!]! @hasMany(relation:"tutorTimes")
 }
 
-type ProductCategory{
+type Category{
     id: ID!
     name: String!
-    supercategory: ProductCategory @hasOne
-    products : [Product] @hasMany
+    supercategory: Category @hasOne
+    products : [Product] @belongsToMany
 }
 
 type Product{
@@ -80,11 +80,12 @@ type Product{
     bio: Boolean!
     package: Boolean!
     detail: String!
-    priceexclVAT: Float!
+    price: Float!
+    vat: Float!
     created_at: DateTime!
     updated_at: DateTime!
-    category: ProductCategory! @belongsTo
     seller: User! @belongsTo
+    categories: [Category]! @belongsToMany
     meat: MeatProduct @hasOne(relation:"meat")
 }
 
