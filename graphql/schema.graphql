@@ -78,10 +78,10 @@ type Product{
     name: String!
     species: String!
     bio: Boolean!
-    package: Boolean!
-    detail: String!
     price: Float!
     vat: Float!
+    stock: Integer!
+    weight: Float!
     created_at: DateTime!
     updated_at: DateTime!
     seller: User! @belongsTo
