@@ -13,9 +13,12 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false, 'verify' => true]);
 
-Route::get('data', function(){
+Route::get('data/{id}', function($id){
 
-    return \App\Models\Product::find(5)->categories;
+    $product = \App\Models\Product::find($id);
+    $cat = $product->categories;
+    $meat = $product->meat;
+    return [$product, $cat, $meat];
 });
 
 Route::middleware(['auth'])->group(function () {
