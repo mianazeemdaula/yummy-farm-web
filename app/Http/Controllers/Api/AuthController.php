@@ -34,6 +34,10 @@ class AuthController extends Controller
             $user->password = bcrypt($request->password);
             // $user->name = $request->name;
             $user->role = $request->role;
+            if($request->role == 'seller'){
+                $count = User::where('role', 'seller')->count() + 1;
+                $user->seller_number = sprintf('%03d', $count);
+            }
             $user->save();
             $user->tokens()->delete();
             $user = User::find($user->id);
@@ -87,6 +91,11 @@ class AuthController extends Controller
                 $authUser->social_id = $user->id;
                 $authUser->email_verified_at = Carbon::now();
                 $authUser->image = $user->getAvatar();
+                if($request->has('role') && $request->role == 'seller'){
+                    $count = User::where('role', 'seller')->count() + 1;
+                    $authUser->seller_number = sprintf('%03d', $count);
+                }
+                $authUser->save();
                 Auth::login($authUser);
                 $authUser->tokens()->delete();
                 $token = $authUser->createToken('Auth Token')->plainTextToken;
