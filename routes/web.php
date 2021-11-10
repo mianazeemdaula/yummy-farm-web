@@ -18,7 +18,7 @@ Route::get('data/{id}', function($id){
     $product = \App\Models\Product::find($id);
     $cat = $product->categories;
     $meat = $product->meat;
-    return [$product, $cat, $meat];
+    return $product;
 });
 
 Route::middleware(['auth'])->group(function () {
