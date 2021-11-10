@@ -14,7 +14,13 @@ class InboxController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $data =  Inbox::where('tutor_id', $user->id)->orWhere('student_id', $user->id)->with(['student','tutor'])->orderBy('updated_at', 'desc')->get();
+        $query = Inbox::query();
+        if($user->role == 'seller'){
+            $query->where('seller_id', $user->id);
+        }else{
+            $query->where('customer_id', $user->id);
+        }
+        $data = $query->orderBy('updated_at', 'desc')->get();
         return response()->json(['status' => true, 'data' => $data]);
     }
 
@@ -22,15 +28,15 @@ class InboxController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'student_id' => 'required|integer',
-            'tutor_id' => 'required|integer',
+            'seller_id' => 'required|integer',
+            'customer_id' => 'required|integer',
         ]);
         if ($validator->fails()) {
             return response()->json(['required' => $validator->errors()->first()], 200);
         } else {
             $inbox = new Inbox();
-            $inbox->student_id = $request->student_id;
-            $inbox->tutor_id = $request->tutor;
+            $inbox->customer_id = $request->customer_id;
+            $inbox->seller_id = $request->seller_id;
             $inbox->save();
             return response()->json(['status' => true, 'data' => $inbox]);
         }
@@ -39,24 +45,10 @@ class InboxController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $data =  Inbox::where([
-            ['tutor_id','=',$id],
-            ['student_id','=',$user->id],
-        ])->OrWhere([
-            ['tutor_id','=',$user->id],
-            ['student_id','=',$id],
-        ])->with(['student', 'tutor'])->first();
-        if (!$data) {
-            $inbox = new Inbox();
-            $inbox->student_id = $user->id;
-            $inbox->tutor_id = $id;
-            $inbox->save();
-            $inbox = Inbox::with(['student','tutor'])->where('id',$inbox->id)->first();
-            return response()->json(['status' => true, 'data' => $inbox]);
-        }
-        $data->is_read = true;
-        $data->save();
-        return response()->json(['status' => true, 'data' => $data]);
+        $inbox =  Inbox::with(['seller','customer'])->where('id',$id)->first();
+        $inbox->is_read = true;
+        $inbox->save();
+        return response()->json(['status' => true, 'data' => $inbox]);
     }
 
     public function update(Request $request, $id)
