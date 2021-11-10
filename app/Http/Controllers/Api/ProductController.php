@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\MeatProducts;
 use Illuminate\Support\Facades\Validator;
 use Exception;
 
@@ -49,8 +50,7 @@ class ProductController extends Controller
                     'species' => 'required|string',
                     // 'kind' => 'required|string',
                     'bio' => 'required',
-                    'price_incl_vat' => 'required',
-                    'price_excl_vat' => 'required',
+                    'price' => 'required',
                     'stock' => 'required',
                     'weight' => 'required',
                 ]
@@ -63,7 +63,6 @@ class ProductController extends Controller
             $product->seller_id = $request->user()->id;
             $product->name = $request->name;
             $product->species = $request->species;
-            $product->kind = $request->kind;
             $product->bio = $request->bio;
             $product->price = $request->price;
             $product->vat = ($request->price * 21) / 100;
@@ -72,6 +71,15 @@ class ProductController extends Controller
             $product->extra_info = $request->extra_info;
             $product->save();
             $product->categories()->sync($request->categories);
+            if($request->has('grass_fed')){
+                $meat = new MeatProducts;
+                $meat->product_id = $product->id;
+                $meat->age = $product->age;
+                $meat->body_part = $product->part;
+                // $meat->life_style = $product->id;
+                $meat->grass_fed = $product->grass_fed;
+                $meat->save();
+            }
             return response()->json(['status' => true, 'data' => $product]);
         } catch (Exception $e) {
             return response()->json(['status' => true, 'data' => $e->getMessage()]);
