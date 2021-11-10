@@ -74,10 +74,10 @@ class ProductController extends Controller
             if($request->has('grass_fed')){
                 $meat = new MeatProducts;
                 $meat->product_id = $product->id;
-                $meat->age = $product->age;
-                $meat->body_part = $product->part;
+                $meat->age = $request->age;
+                $meat->body_part = $request->part;
                 // $meat->life_style = $product->id;
-                $meat->grass_fed = $product->grass_fed;
+                $meat->grass_fed = $request->grass_fed;
                 $meat->save();
             }
             return response()->json(['status' => true, 'data' => $product]);
