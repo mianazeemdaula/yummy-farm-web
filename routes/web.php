@@ -15,7 +15,7 @@ Auth::routes(['register' => false, 'verify' => true]);
 
 Route::get('data', function(){
 
-    return \App\Models\ProductCategory::all();
+    return \App\Models\Product::find(5)->categories;
 });
 
 Route::middleware(['auth'])->group(function () {

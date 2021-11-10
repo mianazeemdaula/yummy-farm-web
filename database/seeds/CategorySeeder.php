@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\ProductCategory;
+use App\Models\Category;
 
 class CategorySeeder extends Seeder
 {
@@ -12,7 +12,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        ProductCategory::insert([
+        Category::insert([
             ['name' => 'Meat', 'super_category_id' => null],
             ['name' => 'Potato', 'super_category_id' => null],
             ['name' => 'Vegitables', 'super_category_id' => null],

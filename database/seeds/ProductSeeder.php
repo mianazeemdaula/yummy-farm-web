@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Product;
-
+use App\Models\ProductCategory;
 class ProductSeeder extends Seeder
 {
     /**

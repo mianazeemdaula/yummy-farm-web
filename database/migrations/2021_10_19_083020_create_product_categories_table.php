@@ -13,11 +13,9 @@ class CreateProductCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_categories', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name', 100)->unique();
-            $table->unsignedBigInteger('super_category_id')->nullable();
-            $table->timestamps();
+        Schema::create('category_product', function (Blueprint $table) {
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('product_id');
         });
     }
 
@@ -28,6 +26,6 @@ class CreateProductCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_categories');
+        Schema::dropIfExists('category_product');
     }
 }

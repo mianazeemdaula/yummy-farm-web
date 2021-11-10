@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Models\Product::class, function (Faker $faker) {
     return [
         'name' => $this->faker->name(),
-        'product_category_id' => $this->faker->numberBetween(1, 5),
+        // 'product_category_id' => $this->faker->numberBetween(1, 5),
         'seller_id' => 3,
         'species' => $this->faker->sentence(3),
         'kind' => $this->faker->sentence(3),

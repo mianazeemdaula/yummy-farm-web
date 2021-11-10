@@ -50,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
     // Tutor Videos
     Route::get('productcats', function(){
-        return \App\Models\ProductCategory::all();
+        return \App\Models\Category::all();
     });
     Route::resource('products', 'Api\ProductController');
 

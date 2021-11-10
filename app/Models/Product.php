@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [];
-    public function category()
+
+    public function categories()
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function meat()
