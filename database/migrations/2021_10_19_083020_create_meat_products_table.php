@@ -17,9 +17,8 @@ class CreateMeatProductsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
             $table->integer('age')->default(0);
-            $table->boolean('lifestyle')->default(true);
-            $table->text('content')->nullable();
-            $table->string('bory_part', 100);
+            $table->string('body_part', 100);
+            $table->boolean('life_style')->default(true);
             $table->boolean('grass_fed')->default(true);
             $table->timestamps();
         });

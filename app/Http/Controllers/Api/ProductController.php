@@ -43,7 +43,8 @@ class ProductController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'category_id' => 'required|integer',
+                    // 'category_id' => 'required|integer',
+                    'categories' => 'required',
                     'name' => 'required|string|min:4',
                     'species' => 'required|string',
                     // 'kind' => 'required|string',
@@ -58,19 +59,19 @@ class ProductController extends Controller
                 return response()->json(['required' => $validator->errors()], 200);
             }
             $product = new Product();
-            $product->product_category_id = $request->category_id;
+            // $product->product_category_id = $request->category_id;
             $product->seller_id = $request->user()->id;
             $product->name = $request->name;
             $product->species = $request->species;
             $product->kind = $request->kind;
             $product->bio = $request->bio;
-            $product->price_incl_vat = $request->price_incl_vat;
-            $product->price_excl_vat = $request->price_excl_vat;
-            $product->delivery_charges = $request->delivery_charges;
+            $product->price = $request->price;
+            $product->vat = ($request->price * 21) / 100;
             $product->stock = $request->stock;
             $product->weight = $request->weight;
             $product->extra_info = $request->extra_info;
             $product->save();
+            $product->categories()->sync($request->categories);
             return response()->json(['status' => true, 'data' => $product]);
         } catch (Exception $e) {
             return response()->json(['status' => true, 'data' => $e->getMessage()]);
