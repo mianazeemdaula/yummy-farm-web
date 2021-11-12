@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\MeatProducts;
 use Illuminate\Support\Facades\Validator;
 use Exception;
@@ -70,7 +71,14 @@ class ProductController extends Controller
             $product->weight = $request->weight;
             $product->extra_info = $request->extra_info;
             $product->save();
-            $product->categories()->sync($request->categories);
+            if($request->has('category')){
+                $cat = new Category;
+                $cat->name = $request->category;
+                $cat->save();
+                $product->categories()->attach($cat->id);
+            }else{
+                $product->categories()->sync($request->categories);
+            }
             if($request->has('grass_fed')){
                 $meat = new MeatProducts;
                 $meat->product_id = $product->id;

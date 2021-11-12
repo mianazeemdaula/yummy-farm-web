@@ -172,6 +172,8 @@ class AuthController extends Controller
                 $user->status = $request->status;
             }if ($request->has('description')) {
                 $user->description = $request->description;
+            }if ($request->has('notifications')) {
+                $user->enable_notification = $request->notifications;
             }
             $user->save();
             $user = User::find($user->id);
