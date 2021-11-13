@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function(){
         return \App\Models\Category::all();
     });
     Route::resource('products', 'Api\ProductController');
+    Route::resource('orders', 'Api\OrderController');
 
     // Libaries
     Route::resource('library', 'Api\LibraryController');
