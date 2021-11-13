@@ -17,10 +17,10 @@ class CreateOrderDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('seller_id');
+            // $table->unsignedBigInteger('seller_id');
             $table->enum('delivery_method', ['take_away', 'delivery'])->default('take_away');
             $table->dateTime('delivery_time');
-            $table->unsignedInteger('qty');
+            $table->unsignedInteger('qty')->default(1);
             $table->timestamps();
         });
     }
