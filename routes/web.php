@@ -14,11 +14,7 @@ Route::get('/', function () {
 Auth::routes(['register' => false, 'verify' => true]);
 
 Route::get('data/{id}', function($id){
-
-    $product = \App\Models\Product::find($id);
-    $cat = $product->categories;
-    $meat = $product->meat;
-    return $product;
+    return App\Models\Order::with(['seller', 'customer', 'details.product'])->find($id);
 });
 
 Route::middleware(['auth'])->group(function () {
