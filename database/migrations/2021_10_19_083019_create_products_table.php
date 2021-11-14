@@ -15,28 +15,26 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 100);
-            // $table->unsignedBigInteger('product_category_id');
             $table->unsignedBigInteger('seller_id');
+            $table->boolean('individual')->default(true);
+            $table->string('name', 100);
+            $table->string('self_category', 100);
             $table->string('species', 100)->nullable();
+            $table->string('body_part', 100)->nullable();
+            $table->string('pieces', 100)->nullable();
+            $table->integer('age')->default(0);
+            $table->string('life_style',50)->nullable();
             $table->boolean('bio')->default(false);
+            $table->integer('weight')->default(0);
             $table->double('price')->default(0.0);
             $table->double('vat')->default(0.0);
             $table->integer('stock')->default(1);
-            $table->integer('weight')->default(0);
-            $table->enum('delivery_type', ['take away', 'delivery'])->default('take away');
-            $table->string('extra_info', 200)->nullable();
+            $table->enum('delivery_type', ['take_away', 'delivery'])->default('take_away');
+            $table->dateTime('delivery_time')->nullable();
             $table->text('description')->nullable();
-            // $table->unsignedBigInteger('parent')->nullable();
-            //stock is derivable
+            $table->string('extra_info', 200)->nullable();
 
             $table->timestamps();
-
-            // $table->foreign('product_category_id')
-            //     ->references('id')
-            //     ->on('product_categories')
-            //     ->onUpdate('cascade')
-            //     ->onDelete('cascade');
 
             $table->foreign('seller_id')
                 ->references('id')

@@ -19,7 +19,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $products = Product::where('seller_id', $user->id)->with(['categories'])->get();
+        return response()->json(['status' => true, 'data' => $data]);
     }
 
     /**
@@ -60,33 +62,28 @@ class ProductController extends Controller
                 return response()->json(['required' => $validator->errors()], 200);
             }
             $product = new Product();
-            // $product->product_category_id = $request->category_id;
             $product->seller_id = $request->user()->id;
             $product->name = $request->name;
             $product->species = $request->species;
+            $meat->body_part = $request->part;
+            $meat->pieces = $request->pieces;
+            $meat->age = $request->age;
+            $meat->life_style = $request->life_style;
             $product->bio = $request->bio;
-            $product->price = $request->price;
-            $product->vat = ($request->price * 21) / 100;
-            $product->stock = $request->stock;
             $product->weight = $request->weight;
+            $product->price = $request->price;
+            $product->vat = $request->price -  ($request->price / 1.21);
+            $product->stock = $request->stock;
+            $meat->delivery_type = $product->delivery_type;
+            $meat->delivery_time = $product->delivery_time;
+            $product->description = $request->description;
             $product->extra_info = $request->extra_info;
             $product->save();
             if($request->has('category')){
-                $cat = new Category;
-                $cat->name = $request->category;
-                $cat->save();
-                $product->categories()->attach($cat->id);
+                $product->self_category = $request->category;
+                $product->save();
             }else{
                 $product->categories()->sync($request->categories);
-            }
-            if($request->has('grass_fed')){
-                $meat = new MeatProducts;
-                $meat->product_id = $product->id;
-                $meat->age = $request->age;
-                $meat->body_part = $request->part;
-                // $meat->life_style = $product->id;
-                $meat->grass_fed = $request->grass_fed;
-                $meat->save();
             }
             return response()->json(['status' => true, 'data' => $product]);
         } catch (Exception $e) {
@@ -125,7 +122,49 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'categories' => 'required',
+                    'name' => 'required|string|min:4',
+                    'bio' => 'required',
+                    'price' => 'required',
+                    'stock' => 'required',
+                    'weight' => 'required',
+                ]
+            );
+            if ($validator->fails()) {
+                return response()->json(['required' => $validator->errors()], 200);
+            }
+            $product = Product::find($id);
+            $product->name = $request->name;
+            $product->species = $request->species;
+            $meat->body_part = $request->part;
+            $meat->pieces = $request->pieces;
+            $meat->age = $request->age;
+            $meat->life_style = $request->life_style;
+            $product->bio = $request->bio;
+            $product->weight = $request->weight;
+            $product->price = $request->price;
+            $product->vat = $request->price -  ($request->price / 1.21);
+            $product->stock = $request->stock;
+            $meat->delivery_type = $product->delivery_type;
+            $meat->delivery_time = $product->delivery_time;
+            $product->description = $request->description;
+            $product->extra_info = $request->extra_info;
+            $product->save();
+            if($request->has('category')){
+                $product->self_category = $request->category;
+                $product->save();
+            }else{
+                $product->categories()->sync($request->categories);
+            }
+            return response()->json(['status' => true, 'data' => $product]);
+        } catch (Exception $e) {
+            return response()->json(['status' => true, 'data' => $e->getMessage()]);
+        }
     }
 
     /**

@@ -40,6 +40,7 @@ class CreateUsersTable extends Migration
             $table->boolean('enable_notification')->nullable()->default(true);
             $table->string('description')->nullable();
             $table->string('status')->default('incomplete');
+            $table->string('lang')->default('en');
             $table->rememberToken();
             $table->timestamps();
         });
