@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('self_category', 100);
             $table->string('species', 100)->nullable();
             $table->string('body_part', 100)->nullable();
-            $table->string('pieces', 100)->nullable();
+            $table->integer('pieces')->nullable();
             $table->integer('age')->default(0);
             $table->string('life_style',50)->nullable();
             $table->boolean('bio')->default(false);
