@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('delivery_address');
             $table->string('extra_note');
             $table->char('status', 20)->default('open');
+            $table->double('delivery_charges')->nullable();
             $table->timestamps();
         });
     }
