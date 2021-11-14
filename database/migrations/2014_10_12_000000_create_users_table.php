@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('business_name')->nullable();
             $table->string('seller_number')->nullable();
             $table->string('address')->nullable();
+            $table->string('address_line_2')->nullable();
             $table->string('country')->nullable();
             $table->point('location')->nullable();
             $table->string('phone')->nullable();
