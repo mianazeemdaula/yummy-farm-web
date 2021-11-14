@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('seller_id');
             $table->boolean('individual')->default(true);
             $table->string('name', 100);
-            $table->string('self_category', 100);
+            $table->string('self_category', 50)->nullable();
             $table->string('species', 100)->nullable();
             $table->string('body_part', 100)->nullable();
             $table->integer('pieces')->nullable();
@@ -30,7 +30,7 @@ class CreateProductsTable extends Migration
             $table->double('vat')->default(0.0);
             $table->integer('stock')->default(1);
             $table->enum('delivery_type', ['take_away', 'delivery'])->default('take_away');
-            $table->dateTime('delivery_time')->nullable();
+            $table->dateTime('delivery_date')->nullable();
             $table->text('description')->nullable();
             $table->string('extra_info', 200)->nullable();
 
