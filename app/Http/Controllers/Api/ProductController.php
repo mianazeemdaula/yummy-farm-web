@@ -152,7 +152,7 @@ class ProductController extends Controller
             $product->vat = $request->price -  ($request->price / 1.21);
             $product->stock = $request->stock;
             $product->delivery_type = $product->delivery_type;
-            $product->delivery_time = $product->delivery_time;
+            $product->delivery_date = $product->delivery_date;
             $product->description = $request->description;
             $product->extra_info = $request->extra_info;
             $product->save();
