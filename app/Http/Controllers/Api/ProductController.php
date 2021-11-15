@@ -22,7 +22,7 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $products = Product::where('seller_id', $user->id)->with(['categories'])->get();
-        return response()->json(['status' => true, 'data' => $data]);
+        return response()->json(['status' => true, 'data' => $products]);
     }
 
     /**
