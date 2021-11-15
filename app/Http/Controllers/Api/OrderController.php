@@ -44,7 +44,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $orders = Order::whereIn('id',$request->ids)->update(['status' => 'delivered']);
+        return $this->index();
     }
 
     /**
@@ -78,7 +79,8 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $orders = Order::whereIn('id',$request->ids)->update(['status' => 'delivered']);
+        return $this->index();
     }
 
     /**
