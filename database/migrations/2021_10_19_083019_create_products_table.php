@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
             $table->double('price')->default(0.0);
             $table->double('vat')->default(0.0);
             $table->integer('stock')->default(1);
-            $table->enum('delivery_type', ['take_away', 'delivery'])->default('take_away');
+            $table->enum('delivery_type', ['take_away', 'delivery'])->nullable();
             $table->dateTime('delivery_date')->nullable();
             $table->text('description')->nullable();
             $table->string('extra_info', 200)->nullable();
