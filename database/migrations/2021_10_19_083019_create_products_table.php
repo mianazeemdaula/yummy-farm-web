@@ -35,6 +35,7 @@ class CreateProductsTable extends Migration
             $table->string('extra_info', 200)->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('seller_id')
                 ->references('id')
