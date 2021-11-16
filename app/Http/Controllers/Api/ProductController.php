@@ -152,7 +152,9 @@ class ProductController extends Controller
             $product->vat = $request->price -  ($request->price / 1.21);
             $product->stock = $request->stock;
             $product->delivery_type = $request->delivery_type;
-            $product->delivery_date = $request->delivery_date;
+            if($request->has('delivery_date')){
+                $product->delivery_date = $request->delivery_date;
+            }
             $product->description = $request->description;
             $product->extra_info = $request->extra_info;
             $product->save();
@@ -176,6 +178,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::find($id)->delete();
+        return response()->json(['status' => true, 'data' => 'product deleted']);
     }
 }
