@@ -68,3 +68,6 @@ Route::middleware('auth:sanctum')->group(function(){
     // Search Tutors and Instruments by Name
     Route::post('search-by-name', 'Api\SearchController@searchByName');
 });
+
+
+Route::post('search-seller', 'Api\SearchController@searchSeller');

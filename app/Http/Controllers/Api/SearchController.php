@@ -8,9 +8,22 @@ use Illuminate\Http\Request;
 use App\Models\Tutor;
 use App\Models\User;
 use Carbon\Carbon;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 class SearchController extends Controller
 {
+
+    public function searchSeller(Request $request)
+    {
+        $users = User::where('role','seller');
+        if($request->has('lat') && $request->has('lng')){
+            $point = new Point($request->lat, $request->lng);
+            $users = $users->distanceSphere('location', $point, 5000);
+        }
+
+        return response()->json($users);
+    }
+
     public function searchByName(Request $request)
     {
         $text = $request->text;
