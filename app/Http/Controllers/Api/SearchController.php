@@ -15,12 +15,12 @@ class SearchController extends Controller
 
     public function searchSeller(Request $request)
     {
-        $users = User::where('role','seller');
+        $users = User::query();
         if($request->has('lat') && $request->has('lng')){
             $point = new Point($request->lat, $request->lng);
             $users = $users->distanceSphere('location', $point, 5000);
         }
-        $users = $users->get();
+        $users = $users->where('role','seller')->get();
         return response()->json($users);
     }
 
