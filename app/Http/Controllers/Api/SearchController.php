@@ -20,7 +20,7 @@ class SearchController extends Controller
             $point = new Point($request->lat, $request->lng);
             $users = $users->distanceSphere('location', $point, 5000);
         }
-
+        $users = $users->get();
         return response()->json($users);
     }
 
