@@ -65,8 +65,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('notificaiton', 'Api\NotificationController');
     Route::post('notificaiton-del-all', 'Api\NotificationController@deleteAll');
 
-    // Search Tutors and Instruments by Name
+    // Customer APP
     Route::post('search-by-name', 'Api\SearchController@searchByName');
+    Route::resource('cart', 'Api\CartController');
 });
 
 
