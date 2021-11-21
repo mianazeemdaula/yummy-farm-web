@@ -71,3 +71,4 @@ Route::middleware('auth:sanctum')->group(function(){
 
 
 Route::post('search-seller', 'Api\SearchController@searchSeller');
+Route::resource('seller-shop', 'Api\ShopController');
