@@ -105,6 +105,9 @@ class CartController extends Controller
         }
         if($qty <= 0){
             $cartProduct->delete();
+        }else{
+            $cartProduct->qty = $qty;
+            $cartProduct->save();
         }
         $query = Cart::doesntHave('details')->delete();
         return $this->index();
