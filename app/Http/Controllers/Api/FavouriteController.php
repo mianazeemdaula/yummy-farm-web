@@ -18,7 +18,8 @@ class FavouriteController extends Controller
      */
     public function index()
     {
-        return Auth::user()->favorite->pluck('id');
+        $ids =  Auth::user()->favorite->pluck('id');
+        return User::whereIn('id', $ids)->get();
     }
 
     /**
@@ -47,7 +48,7 @@ class FavouriteController extends Controller
         else
             $user->favorite()->attach($request->seller_id);
 
-        return $user->favorite->pluck('id');
+        return $this->index();
     }
 
     /**
