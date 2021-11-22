@@ -34,11 +34,15 @@ class InboxController extends Controller
         if ($validator->fails()) {
             return response()->json(['required' => $validator->errors()->first()], 200);
         } else {
-            $inbox = new Inbox();
-            $inbox->customer_id = $request->customer_id;
-            $inbox->seller_id = $request->seller_id;
-            $inbox->save();
-            return response()->json(['status' => true, 'data' => $inbox]);
+            $query = Inbox::where('seller_id',$request->seller_id)->where('customer_id', $request->customer_id)->first();
+            if(!$query){
+                $inbox = new Inbox();
+                $inbox->customer_id = $request->customer_id;
+                $inbox->seller_id = $request->seller_id;
+                $inbox->save();
+                return response()->json(['status' => true, 'data' => $inbox]);
+            }
+            return response()->json(['status' => true, 'data' => $query]);
         }
     }
 
