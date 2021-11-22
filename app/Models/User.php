@@ -72,7 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail
    
     public function favorite()
     {
-        return $this->belongsToMany('App\Models\User','favorite_sellers','customer_id');
+        return $this->belongsToMany('App\Models\User','favorite_sellers','customer_id', 'seller_id');
     }
 
     public function tutorCountReviews()
