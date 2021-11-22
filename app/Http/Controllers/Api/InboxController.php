@@ -20,7 +20,7 @@ class InboxController extends Controller
         }else{
             $query->where('customer_id', $user->id);
         }
-        $data = $query->orderBy('updated_at', 'desc')->get();
+        $data = $query->with(['seller','customer'])->orderBy('updated_at', 'desc')->get();
         return response()->json(['status' => true, 'data' => $data]);
     }
 
