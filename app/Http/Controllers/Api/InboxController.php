@@ -40,9 +40,9 @@ class InboxController extends Controller
                 $inbox->customer_id = $request->customer_id;
                 $inbox->seller_id = $request->seller_id;
                 $inbox->save();
-                return response()->json(['status' => true, 'data' => $inbox]);
+                return $this->show($inbox->id);
             }
-            return response()->json(['status' => true, 'data' => $query]);
+            return $this->show($query->id);
         }
     }
 
