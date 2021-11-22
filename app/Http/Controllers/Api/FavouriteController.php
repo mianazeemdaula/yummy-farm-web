@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Tutor;
+use App\Models\FavoriteSeller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +18,7 @@ class FavouriteController extends Controller
      */
     public function index()
     {
-        return Auth::user()->favouriteTutors->pluck('id');
+        return Auth::user()->favorite->pluck('id');
     }
 
     /**
@@ -40,14 +40,14 @@ class FavouriteController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-        $count = $user->favouriteTutors()->wherePivot('tutor_id', $request->tutor)->count();
+        $count = $user->favorite()->wherePivot('seller_id', $request->seller_id)->count();
 
         if ($count > 0)
-            $user->favouriteTutors()->detach($request->tutor);
+            $user->favorite()->detach($request->seller_id);
         else
-            $user->favouriteTutors()->attach($request->tutor);
+            $user->favorite()->attach($request->seller_id);
 
-        return $user->favouriteTutors->pluck('id');
+        return $user->favorite->pluck('id');
     }
 
     /**

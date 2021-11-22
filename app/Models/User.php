@@ -69,55 +69,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Notifications::class);
     }
 
-    public function getTutor($id)
+   
+    public function favorite()
     {
-        return $this->where('id',$id)->with(['instruments', 'languages', 'tutorVideos','tutorRating','tutorCountReviews', 'tutorToughtHours'])->first();
-    }
-
-
-    public function userable()
-    {
-        return $this->morphTo();
-    }
-
-    public function favouriteTutors()
-    {
-        return $this->belongsToMany('App\Models\User','favourite_tutor_users','student_id','tutor_id');
-    }
-
-    public function instruments()
-    {
-        return $this->belongsToMany('App\Models\Instrument',null,'tutor_id');
-    }
-
-    // public function instrumentCats()
-    // {
-    //     return $this->belongsToMany('App\Models\InstrumentCategory',null,'tutor_id');
-    // }
-
-    public function tutorVideos()
-    {
-        return $this->hasMany(TutorVideos::class, 'tutor_id', 'id');
-    }
-
-    public function languages()
-    {
-        return $this->belongsToMany('App\Models\Language',null,'tutor_id');
-    }
-
-    public function tutorLessions()
-    {
-        return $this->hasMany('App\Models\Lession','tutor_id');
-    }
-
-    public function activeStudents()
-    {
-        return $this->tutorLessions()->selectRaw('count(id) as value')->groupBy('tutor_id');
-    }
-
-    public function tutorRating()
-    {
-        return $this->hasOneThrough(Review::class, Lession::class,'tutor_id')->selectRaw('avg(rating) as value')->groupBy('tutor_id');
+        return $this->belongsToMany('App\Models\User','favorite_sellers','customer_id');
     }
 
     public function tutorCountReviews()
