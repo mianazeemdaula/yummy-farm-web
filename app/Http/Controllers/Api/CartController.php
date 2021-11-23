@@ -55,10 +55,17 @@ class CartController extends Controller
             $detail->product_id = $product->id;
             $detail->save();
         }else{
-            $detail = new CartDetail;
-            $detail->cart_id = $cartData->id;
-            $detail->product_id = $product->id;
-            $detail->save();
+            $item = CartDetail::where('cart_id', $cartData->id)->where('product_id', $product->id)->first();
+            if(!$item){
+                $detail = new CartDetail;
+                $detail->cart_id = $cartData->id;
+                $detail->product_id = $product->id;
+                $detail->save();
+            }else{
+                $item->qty = $item->qty + 1;
+                $item->save();
+            }
+            
         }
 
         return $this->index();

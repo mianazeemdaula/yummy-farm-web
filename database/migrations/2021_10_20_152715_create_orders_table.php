@@ -18,10 +18,11 @@ class CreateOrdersTable extends Migration
             $table->string('number');
             $table->unsignedBigInteger('seller_id');
             $table->unsignedBigInteger('customer_id');
-            $table->string('delivery_address');
-            $table->string('extra_note');
-            $table->char('status', 20)->default('open');
+            $table->string('delivery_address')->nullable();
+            $table->string('extra_note')->nullable();
+            $table->char('delivery_method', 20)->default('take_away');
             $table->double('delivery_charges')->nullable();
+            $table->char('status', 20)->default('open');
             $table->timestamps();
         });
     }
