@@ -48,7 +48,7 @@ class OrderController extends Controller
     {
         $user = $request->user();
         if($user->role == 'customer'){
-            $carts = Cart::where('customer_id',$auth->id)->get();
+            $carts = Cart::where('customer_id',$user->id)->get();
             foreach($carts as $cart){
                 $orderCount = Order::where('seller_id', $cart->seller_id)->count();
                 $orderCount = sprintf('%04d', $orderCount);
