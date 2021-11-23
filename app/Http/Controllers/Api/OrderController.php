@@ -19,12 +19,13 @@ class OrderController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $data = [];
+        $data = Order::with(['details.product', 'seller', 'customer']);
         if ($user->role== 'seller') {
-            $data = Order::where('seller_id', $user->id)->with(['details.product', 'seller', 'customer'])->get();
+            $data->where('seller_id', $user->id);
         } else if ($user->role == 'customer') {
-            $data = Order::where('customer_id', $user->id)->with(['details.product', 'seller', 'customer'])->get();
+            $data->where('customer_id', $user->id);
         }
+        $data = $data->orderBy('id','desc')->get();
         return response()->json(['status' => true, 'data' => $data]);
     }
 
