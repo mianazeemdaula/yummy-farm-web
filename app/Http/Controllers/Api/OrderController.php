@@ -68,6 +68,7 @@ class OrderController extends Controller
                     $item->save();
                 }
             }
+            $carts->delete();
             return response()->json(['status' => true, 'data' => 'assigned']);
         }else{
             return response()->json(['status' => false, 'data' => 'You are not authorized']);
