@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\CartDetail;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,6 +51,7 @@ class OrderController extends Controller
         $user = $request->user();
         if($user->role == 'customer'){
             $carts = Cart::where('customer_id',$user->id)->get();
+            $detailsIds = [];
             foreach($carts as $cart){
                 $orderCount = Order::where('seller_id', $cart->seller_id)->count();
                 $orderCount = sprintf('%04d', ($orderCount + 1));
@@ -67,9 +69,11 @@ class OrderController extends Controller
                     $item->qty = $detail->qty;
                     $item->price = $detail->product->price;
                     $item->save();
+                    $detailsIds[] = $detail->id;
                 }
             }
-            $carts->delete();
+            Cart::whereIn('id', $carts->pluck('id'))->delete();
+            CartDetail::whereIn('id', $detailsIds)->delete();
             return response()->json(['status' => true, 'data' => 'assigned']);
         }else{
             return response()->json(['status' => false, 'data' => 'You are not authorized']);
