@@ -13,19 +13,6 @@ use Grimzy\LaravelMysqlSpatial\Types\Point;
 class SearchController extends Controller
 {
 
-    /*
-ProductDetail 
- ProductSpecies 
- ProductBio (if search is ‘bio’: give the results of fields where bio-label is ja) 
- ProductGrassfed (If search is (gras’ or ‘grasgevoederd’: give the results where the field contains ja) 
- ProductLifestyle 
- ProductPieces 
- ProductName 
- ProductContent 
- ProductCategory
-
-
-    */
     public function searchSeller(Request $request)
     {
         // \DB::enableQueryLog();
