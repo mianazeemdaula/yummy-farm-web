@@ -51,7 +51,7 @@ class OrderController extends Controller
             $carts = Cart::where('customer_id',$user->id)->get();
             foreach($carts as $cart){
                 $orderCount = Order::where('seller_id', $cart->seller_id)->count();
-                $orderCount = sprintf('%04d', $orderCount);
+                $orderCount = sprintf('%04d', ($orderCount + 1));
                 $order = new Order;
                 $order->number = date("y").$cart->seller->seller_number.$orderCount;
                 $order->seller_id = $cart->seller_id;
