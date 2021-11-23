@@ -22,8 +22,8 @@ class OrderController extends Controller
         $data = [];
         if ($user->role== 'seller') {
             $data = Order::where('seller_id', $user->id)->with(['details.product', 'seller', 'customer'])->get();
-        } else if ($user->role== 'customer') {
-            $data = Order::where('customer', $user->id)->with(['details.product', 'seller', 'customer'])->get();
+        } else if ($user->role == 'customer') {
+            $data = Order::where('customer_id', $user->id)->with(['details.product', 'seller', 'customer'])->get();
         }
         return response()->json(['status' => true, 'data' => $data]);
     }
