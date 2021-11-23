@@ -13,15 +13,47 @@ use Grimzy\LaravelMysqlSpatial\Types\Point;
 class SearchController extends Controller
 {
 
+    /*
+ProductDetail 
+ ProductSpecies 
+ ProductBio (if search is ‘bio’: give the results of fields where bio-label is ja) 
+ ProductGrassfed (If search is (gras’ or ‘grasgevoederd’: give the results where the field contains ja) 
+ ProductLifestyle 
+ ProductPieces 
+ ProductName 
+ ProductContent 
+ ProductCategory
+
+
+    */
     public function searchSeller(Request $request)
     {
-        $users = User::query();
+        // \DB::enableQueryLog();
+        $sellers = User::query();
+        if($request->has('text')){
+            $text = $request->text;
+            $sellers = User::search($text);
+            $sellers->orWhereHas('products', function($q) use($text){
+                $q->where('species', 'like', '%'.$text.'%');
+                $q->orWhere('description', 'like', '%'.$text.'%');
+                $q->orWhere('life_style', 'like', '%'.$text.'%');
+                $q->orWhere('name', 'like', '%'.$text.'%');
+                $q->orWhere('extra_info', 'like', '%'.$text.'%');
+                $q->orWhereHas('categories', function($qc) use($text){
+                    $qc->where('name', 'like', '%'.$text.'%');
+                });
+                if (strpos($text, 'bio') !== false) {
+                    $q->orWhere('bio', true);
+                }
+            });
+        }
         if($request->has('lat') && $request->has('lng')){
             $point = new Point($request->lat, $request->lng);
-            $users = $users->distanceSphere('location', $point, 5000);
+            $sellers->distanceSphere('location', $point, 5000);
         }
-        $users = $users->where('role','seller')->get();
-        return response()->json($users);
+        $sellers = $sellers->where('role','seller')->whereNotNull('location')->get();
+        // return \DB::getQueryLog();
+        return response()->json($sellers);
     }
 
     public function searchByName(Request $request)

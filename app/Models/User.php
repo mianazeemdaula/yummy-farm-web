@@ -75,6 +75,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany('App\Models\User','favorite_sellers','customer_id', 'seller_id');
     }
 
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('business_name', 'like', '%'.$search.'%')
+                ->orWhere('username', 'like', '%'.$search.'%')
+                ->orWhere('address_line_2', 'like', '%'.$search.'%');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class,'seller_id');
+    }
+
     public function tutorCountReviews()
     {
         return $this->hasOneThrough(Review::class, Lession::class,'tutor_id')->selectRaw('count(lession_id) as value')->groupBy('tutor_id');
