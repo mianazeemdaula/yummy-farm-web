@@ -23,5 +23,6 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
         'description' => $this->faker->realText(),
         'extra_info' => $this->faker->realText(),
         'delivery_date' => $this->faker->dateTime(),
+        'delivery_type' => $this->faker->randomElement(['take_away', 'delivery']),
     ];
 });
