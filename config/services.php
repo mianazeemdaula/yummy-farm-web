@@ -31,15 +31,15 @@ return [
     ],
 
     'google' => [
-        'client_id'     => '44389705352-lsdiqm789fqvo1jkal81eccbtldn3h4o.apps.googleusercontent.com',
-        'client_secret' => 'Xvd7elTDto12EYeW76wfoaWk',
-        'redirect'      => 'https://gleedu.com/api/auth/google/callback'
+        'client_id'     => '55153990187-nru61msr9fi79s8cdiv3hqebvlr0avqe.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect'      => 'http://admin.yummyfarm.be/api/auth/google/callback'
     ],
 
     'facebook' => [
         'client_id' => '333067848326474',
         'client_secret' => 'f5f9cbbf3ee511b6de40212d9f70feb4',
-        'redirect' => "https://gleedu.com/api/auth/facebook/callback",
+        'redirect' => "http://admin.yummyfarm.be/api/auth/facebook/callback",
     ],
 
 ];
