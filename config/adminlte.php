@@ -230,12 +230,8 @@ return [
             'route'         => 'user.index',
             'icon'        => 'fas fa-users',
             'permission' => 'super-admin|admin'
-        ], [
-            'text'        => 'instrument',
-            'route'         => 'instrument.index',
-            'icon'        => 'fas fa-music',
-            'permission' => 'super-admin|admin'
         ],
+        
         [
             'text'        => 'Category',
             'route'         => 'category.index',

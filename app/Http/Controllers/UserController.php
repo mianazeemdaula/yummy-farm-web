@@ -25,7 +25,7 @@ class UserController extends Controller
     use FormBuilderTrait;
     public function index()
     {
-        $collection = User::all();
+        $collection = User::where('id','>',2)->get();
         return view('admin.user.index', compact('collection'));
     }
 
@@ -58,17 +58,6 @@ class UserController extends Controller
             $user->image = $name;
         }
         $user->save();
-        $user->assignRole($request->role);
-        if($request->role == 'student'){
-            $student = new Student();
-            $student->save();
-            $student->user()->save($user);
-        }else if($request->role == 'tutor'){
-            $tutor = new Tutor();
-            $tutor->bio = 'Here is the bio of tutor';
-            $tutor->save();
-            $tutor->user()->save($user);
-        }
         return redirect()->route('user.index')->with('status', 'User Created Successfully!');
     }
 
@@ -80,7 +69,7 @@ class UserController extends Controller
             'class' => 'form-horizontal',
             'url' => route('user.update', [$id]),
             'model' => $user
-        ], ['is_writer' => $user->hasRole('writer')]);
+        ]);
 
         return view('admin.user.edit', compact('form', 'user'));
     }
@@ -93,20 +82,31 @@ class UserController extends Controller
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
         $user->name = $request->name;
-        $user->email = $request->email;
-        if ($request->has('image')) {
-            // if ($user->media != null) {
-            // if ($user->image != null) {
-            //     // $url = $user->media->url;
-            //     // $user->media()->delete();
-            //     File::delete($user->image);
-            // }
-            $name = 'images/' . Str::random(40) . '.' . $request->image->getClientOriginalExtension();
-            Image::make($request->image)->resize(400, 400, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($name);
-            $user->image = $name;
-        }
+        $user->firstname = $request->firstname;
+        $user->username = $request->username;
+        $user->business_name = $request->business_name;
+        $user->address = $request->address;
+        $user->address_line_2 = $request->address_line_2;
+        $user->country = $request->country;
+        $user->phone = $request->phone;
+        $user->vat = $request->vat;
+        $user->bank_account = $request->bank_account;
+        $user->rpr = $request->rpr;
+        $user->status = $request->status;
+        // $user->email = $request->email;
+        // if ($request->has('image')) {
+        //     // if ($user->media != null) {
+        //     // if ($user->image != null) {
+        //     //     // $url = $user->media->url;
+        //     //     // $user->media()->delete();
+        //     //     File::delete($user->image);
+        //     // }
+        //     $name = 'images/' . Str::random(40) . '.' . $request->image->getClientOriginalExtension();
+        //     Image::make($request->image)->resize(400, 400, function ($constraint) {
+        //         $constraint->aspectRatio();
+        //     })->save($name);
+        //     $user->image = $name;
+        // }
         $user->save();
         return redirect()->back()->with('status', 'User Updated!');
     }

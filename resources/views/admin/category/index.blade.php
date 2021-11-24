@@ -37,7 +37,7 @@
                                     <td> {{ $item->updated_at}} </td>
                                     <td>
                                       <div class="btn-group">
-                                        {{-- <a href="#" class="btn-sm btn-default"><i class="fas fa-eye"></i></a> --}}
+                                        <a href="{{ route('sub.category.index',[$item->id]) }}" class="btn-sm btn-default"><i class="fas fa-eye"></i></a>
                                         <a href="{{ route('category.edit',[$item->id]) }}" type="button" class="btn-sm btn-default"><i class="fas fa-edit"></i></a>
                                         {{-- <a href="#" class="btn-sm btn-default"><i class="fas fa-trash"></i></a> --}}
                                       </div>

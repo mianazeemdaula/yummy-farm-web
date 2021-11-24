@@ -13,21 +13,18 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
-                        User(s)
+                        {{ \App\Models\Category::find($id)->name }}
                     </h3>
                 </div>
                 <div class="card-body">
-                    {{-- <div class="py-2">
-                        <a href="{{ route('user.create') }}" class="btn btn-primary" > Create User</a>
-                    </div> --}}
+                    <div class="py-2">
+                        <a href="{{ route('sub.category.create', $id) }}" class="btn btn-primary" >Create Sub Category</a>
+                    </div>
                     <table class="table table-sm dataTable" id="example1">
                         <thead>
                             <tr>
-                                <th>ID #</th>
-                                <th>Avatar</th>
+                                <th>Sr #</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Rols</th>
                                 <th>Last Update</th>
                                 <th>Action</th>
                             </tr>
@@ -36,21 +33,13 @@
                             @foreach ($collection as $item)
                                 <tr>
                                     <td> {{ $item->id}} </td>
-                                    <td> <img src="{{ $item->image}}" width="40" alt="" srcset=""> </td>
                                     <td> {{ $item->name}} </td>
-                                    <td> {{ $item->email}} </td>
-                                    <td> {{ $item->role}} </td>
                                     <td> {{ $item->updated_at}} </td>
                                     <td>
                                       <div class="btn-group">
-                                        <a href="{{ route('user.show',[$item->id]) }}" class="btn-sm btn-default"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ route('user.edit',[$item->id]) }}" type="button" class="btn-sm btn-default"><i class="fas fa-edit"></i></a>
-
-                                        <a href="#" class="btn-sm btn-default delete-user"><i class="fas fa-trash"></i></a>
-                                            <form method="POST" action="{{ route('user.destroy', $item->id) }}">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                            </form>
+                                        {{-- <a href="{{ route('sub.category.index',[$item->id]) }}" class="btn-sm btn-default"><i class="fas fa-eye"></i></a> --}}
+                                        <a href="{{ route('category.edit',[$item->id]) }}" type="button" class="btn-sm btn-default"><i class="fas fa-edit"></i></a>
+                                        {{-- <a href="#" class="btn-sm btn-default"><i class="fas fa-trash"></i></a> --}}
                                       </div>
                                     </td>
                                 </tr>
@@ -68,13 +57,6 @@
 <script>
 $(function () {
     $("#example1").DataTable();
-    $('.delete-user').click(function(e){
-        e.preventDefault() // Don't post the form, unless confirmed
-        if (confirm('Are you sure?')) {
-            // Post the form
-            $(this).siblings('form').submit() // Post the surrounding form
-        }
-    });
 });
 </script>
 @endsection

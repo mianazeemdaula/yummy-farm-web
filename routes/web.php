@@ -22,11 +22,8 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::resource('user','UserController');
-    // Route::get('export','UserController@export');
-    Route::resource('instrument','InstrumentController');
-    Route::resource('category','InstrumentCategoryController');
-    Route::resource('ingredientunit','IngredientUnitController');
-    Route::resource('ingredientcategory','IngredientCategoryController');
+    Route::resource('category','CategoryController');
+    Route::resource('sub.category','SubCategoryController');
 
     Route::middleware(['role:admin'])->group(function () {
         Route::prefix('admin')->group(function () {

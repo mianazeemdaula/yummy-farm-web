@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use App\Forms\Admin\CategoryForm;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     use FormBuilderTrait;
     /**
@@ -15,23 +15,23 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $collection = Category::whereNull('super_category_id')->get();
-        return view('admin.category.index', compact('collection'));
+        $collection = Category::where('super_category_id',$id)->get();
+        return view('admin.subcategory.index', compact('collection', 'id'));
     }
 
-    public function create()
+    public function create($id)
     {
         $form = $this->form(CategoryForm::class, [
             'method' => 'POST',
             'class' => 'form-horizontal',
-            'url' => route('category.store')
+            'url' => route('sub.category.store',$id)
         ]);
-        return view('admin.category.create', compact('form'));
+        return view('admin.subcategory.create', compact('form'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $form = $this->form(CategoryForm::class);
 
@@ -40,9 +40,9 @@ class CategoryController extends Controller
         }
         $category = new Category();
         $category->name = $request->name;
-        $category->instrument_id = $request->instrument_id;
+        $category->super_category_id = $id;
         $category->save();
-        return redirect()->route('category.index')->with('status', 'Category Created Successfully!');
+        return redirect()->route('sub.category.index', $id)->with('status', 'Category Created Successfully!');
     }
 
     public function edit($id)
@@ -51,11 +51,11 @@ class CategoryController extends Controller
         $form = $this->form(CategoryForm::class, [
             'method' => 'PUT',
             'class' => 'form-horizontal',
-            'url' => route('category.update', [$id]),
+            'url' => route('sub.category.update', [$id]),
             'model' => $category
         ]);
 
-        return view('admin.category.edit', compact('form', 'category'));
+        return view('admin.subcategory.edit', compact('form', 'category'));
     }
 
     public function update(Request $request, Category $category)
@@ -67,11 +67,6 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->save();
         return redirect()->back()->with('status', 'Category Updated!');
-    }
-
-    public function show(Category $unit)
-    {
-        return view('ingredient-unit.view', compact('unit'));
     }
 
     /**
