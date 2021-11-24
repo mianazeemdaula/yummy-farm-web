@@ -94,6 +94,7 @@ class AuthController extends Controller
                     $count = User::where('role', 'seller')->count() + 1;
                     $authUser->seller_number = sprintf('%03d', $count);
                 }
+                $authUser->role = $request->role;
                 $authUser->save();
                 Auth::login($authUser);
                 $authUser->tokens()->delete();
