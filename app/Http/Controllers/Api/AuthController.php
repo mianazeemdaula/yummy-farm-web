@@ -192,7 +192,7 @@ class AuthController extends Controller
         // if($user->role == 'seller'){
         //     $data['categories'] = Category::all();
         // }
-        return response()->json(['status' => true, 'data' => $data]);
+        return response()->json($data);
     }
 
 }
