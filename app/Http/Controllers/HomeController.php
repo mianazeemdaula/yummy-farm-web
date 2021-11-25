@@ -25,9 +25,9 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::count();
-        $instruments  = 0;
-        $categories  = 0;
-        $lessions = 0;
-        return view('home', compact('users', 'instruments', 'categories', 'lessions'));
+        $orders  = \App\Models\Order::count();
+        $categories  = \App\Models\Category::count();
+        $products = \App\Models\Product::count();
+        return view('home', compact('users', 'orders', 'categories', 'products'));
     }
 }

@@ -21,14 +21,14 @@
       <!-- small box -->
       <div class="small-box bg-success">
         <div class="inner">
-          <h3>{{ $instruments }}<sup style="font-size: 20px"></sup></h3>
+          <h3>{{ $orders }}<sup style="font-size: 20px"></sup></h3>
 
-          <p>Total Instruments</p>
+          <p>Total Orders</p>
         </div>
         <div class="icon">
           <i class="ion ion-stats-bars"></i>
         </div>
-        <a href="{{ route('category.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -51,9 +51,9 @@
       <!-- small box -->
       <div class="small-box bg-danger">
         <div class="inner">
-          <h3>{{ $lessions }}</h3>
+          <h3>{{ $products }}</h3>
 
-          <p>Total Lessions</p>
+          <p>Total Products</p>
         </div>
         <div class="icon">
           <i class="ion ion-pie-graph"></i>
