@@ -14,6 +14,7 @@ use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Password;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 class AuthController extends Controller
 {
@@ -176,6 +177,8 @@ class AuthController extends Controller
                 $user->description = $request->description;
             }if ($request->has('notifications')) {
                 $user->enable_notification = $request->notifications;
+            }if ($request->has('lat') && $request->has('lng')) {
+                $user->location = new Point($request->lat, $request->lng);
             }
             $user->save();
             $user = User::find($user->id);
