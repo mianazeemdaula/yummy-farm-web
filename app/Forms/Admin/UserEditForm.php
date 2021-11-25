@@ -47,7 +47,7 @@ class UserEditForm extends Form
             'label' => 'RPR'
         ])
         ->add('status', 'select',  [
-            'choices' => ['enable' => 'Enabled', 'disable' => 'Disable'],
+            'choices' => ['active' => 'Active', 'inactive' => 'inActive'],
             'label' => 'Status'
         ]);
     }
