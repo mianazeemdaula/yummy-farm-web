@@ -177,6 +177,8 @@ class AuthController extends Controller
                 $user->description = $request->description;
             }if ($request->has('notifications')) {
                 $user->enable_notification = $request->notifications;
+            }if ($request->has('lang')) {
+                $user->lang = $request->lang;
             }if ($request->has('lat') && $request->has('lng')) {
                 $user->location = new Point($request->lat, $request->lng);
             }
