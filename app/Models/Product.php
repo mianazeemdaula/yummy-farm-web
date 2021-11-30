@@ -20,4 +20,22 @@ class Product extends Model
     {
         return $this->hasOne(MeatProducts::class);
     }
+
+
+    // Mutators
+
+    public function setPriceAttribute($value)
+    {
+        $this->attributes['price'] = round($value, 2);
+    }
+
+    public function setVatAttribute($value)
+    {
+        $this->attributes['vat'] = round($value, 2);
+    }
+
+    public function setDeliveryChargesAttribute($value)
+    {
+        $this->attributes['delivery_charges'] = round($value, 2);
+    }
 }

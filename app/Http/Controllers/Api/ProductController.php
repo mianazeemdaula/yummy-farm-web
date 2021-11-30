@@ -48,11 +48,9 @@ class ProductController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    // 'category_id' => 'required|integer',
                     'categories' => 'required',
                     'name' => 'required|string|min:4',
-                    // 'species' => 'required|string',
-                    // 'kind' => 'required|string',
+                    'species' => 'required|string',
                     'bio' => 'required',
                     'price' => 'required',
                     'stock' => 'required',
@@ -76,7 +74,15 @@ class ProductController extends Controller
             $product->vat = $request->price -  ($request->price / 1.21);
             $product->stock = $request->stock;
             $product->delivery_type = $request->delivery_type;
-            $product->delivery_date = $request->delivery_date;
+            if($request->has('available_from')){
+                $product->available_from = $request->available_from;
+            }
+            if($request->has('available_to')){
+                $product->available_to = $request->available_to;
+            }
+            if($request->has('delivery_charges')){
+                $product->delivery_charges = $request->delivery_charges;
+            }
             $product->description = $request->description;
             $product->extra_info = $request->extra_info;
             $product->save();
@@ -152,8 +158,14 @@ class ProductController extends Controller
             $product->vat = $request->price -  ($request->price / 1.21);
             $product->stock = $request->stock;
             $product->delivery_type = $request->delivery_type;
-            if($request->has('delivery_date')){
-                $product->delivery_date = $request->delivery_date;
+            if($request->has('available_from')){
+                $product->available_from = $request->available_from;
+            }
+            if($request->has('available_to')){
+                $product->available_to = $request->available_to;
+            }
+            if($request->has('delivery_charges')){
+                $product->delivery_charges = $request->delivery_charges;
             }
             $product->description = $request->description;
             $product->extra_info = $request->extra_info;

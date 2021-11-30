@@ -18,7 +18,7 @@ class CreateOrderDetailsTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('qty')->default(1);
-            $table->double('price')->default(0);
+            $table->double('price')->default(0.0);
             $table->timestamps();
         });
     }
