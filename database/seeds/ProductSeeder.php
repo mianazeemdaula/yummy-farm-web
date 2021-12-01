@@ -14,7 +14,10 @@ class ProductSeeder extends Seeder
     public function run()
     {
         factory(App\Models\Product::class, 50)->create()->each(function ($p){
-            $p->categories()->sync([3,5]);
+            if($p->individual)
+                $p->categories()->attach(1);
+            else
+                $p->categories()->sync([3,5]);
         });
     }
 }
