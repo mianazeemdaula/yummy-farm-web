@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $products = Product::where('seller_id', $user->id)->with(['categories'])->get();
+        $products = Product::where('seller_id', $user->id)->with(['categories'])->orderBy('id','desc')->get();
         return response()->json(['status' => true, 'data' => $products]);
     }
 
