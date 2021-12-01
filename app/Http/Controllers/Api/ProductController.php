@@ -50,7 +50,6 @@ class ProductController extends Controller
                 [
                     'categories' => 'required',
                     'name' => 'required|string|min:4',
-                    'species' => 'required|string',
                     'bio' => 'required',
                     'price' => 'required',
                     'stock' => 'required',
