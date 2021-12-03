@@ -72,16 +72,16 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->vat = $request->price -  ($request->price / 1.21);
             $product->stock = $request->stock;
-            $product->delivery_type = $request->delivery_type;
+            // $product->delivery_type = $request->delivery_type;
             if($request->has('available_from')){
                 $product->available_from = $request->available_from;
             }
             if($request->has('available_to')){
                 $product->available_to = $request->available_to;
             }
-            if($request->has('delivery_charges')){
-                $product->delivery_charges = $request->delivery_charges;
-            }
+            // if($request->has('delivery_charges')){
+            //     $product->delivery_charges = $request->delivery_charges;
+            // }
             $product->description = $request->description;
             $product->extra_info = $request->extra_info;
             $product->save();
@@ -156,16 +156,16 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->vat = $request->price -  ($request->price / 1.21);
             $product->stock = $request->stock;
-            $product->delivery_type = $request->delivery_type;
+            // $product->delivery_type = $request->delivery_type;
             if($request->has('available_from')){
                 $product->available_from = $request->available_from;
             }
             if($request->has('available_to')){
                 $product->available_to = $request->available_to;
             }
-            if($request->has('delivery_charges')){
-                $product->delivery_charges = $request->delivery_charges;
-            }
+            // if($request->has('delivery_charges')){
+            //     $product->delivery_charges = $request->delivery_charges;
+            // }
             $product->description = $request->description;
             $product->extra_info = $request->extra_info;
             $product->save();
