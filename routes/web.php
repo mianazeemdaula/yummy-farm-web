@@ -6,6 +6,7 @@ use App\Models\Notifications;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -14,6 +15,8 @@ Route::get('/', function () {
 Auth::routes(['register' => false, 'verify' => true]);
 
 Route::get('data/{id}', function($id){
+    $order = App\Models\Order::find($id);
+    return Mail::to('mazeemrehan@gmail.com')->send(new \App\Mail\OrderGenerated($order));
     return App\Models\Order::with(['seller', 'customer', 'details.product'])->find($id);
 });
 

@@ -29,8 +29,8 @@ class CreateProductsTable extends Migration
             $table->float('price')->default(0.0);
             $table->float('vat')->default(0.0);
             $table->integer('stock')->default(1);
-            $table->float('delivery_charges')->default(0.0);
-            $table->enum('delivery_type', ['take_away', 'delivery'])->nullable();
+            // $table->float('delivery_charges')->default(0.0);
+            // $table->enum('delivery_type', ['take_away', 'delivery'])->nullable();
             $table->date('available_from')->nullable();
             $table->date('available_to')->nullable();
             $table->text('description')->nullable();

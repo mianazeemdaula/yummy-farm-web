@@ -71,6 +71,7 @@ class OrderController extends Controller
                     $item->save();
                     $detailsIds[] = $detail->id;
                 }
+                // Mail::to($request->user())->send(new OrderShipped($order));
             }
             Cart::whereIn('id', $carts->pluck('id'))->delete();
             CartDetail::whereIn('id', $detailsIds)->delete();
