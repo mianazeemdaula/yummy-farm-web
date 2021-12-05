@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function(){
     });
     Route::resource('products', 'Api\ProductController');
     Route::resource('orders', 'Api\OrderController');
+    Route::resource('charges', 'Api\DeliveryChargesController');
 
     // Libaries
     Route::resource('library', 'Api\LibraryController');
