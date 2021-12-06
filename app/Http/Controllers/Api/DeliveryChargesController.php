@@ -58,7 +58,9 @@ class DeliveryChargesController extends Controller
             $charges->max_weight = $request->max_weight;
             $charges->charges = $request->charges;
             $charges->save();
-            return $this->index();
+            $user = Auth::user();
+            $data = DeliveryCharge::where('seller_id', $user->id)->get();
+            return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $e) {
             return response()->json(['status' => true, 'data' => $e->getMessage()]);
         }
@@ -114,7 +116,9 @@ class DeliveryChargesController extends Controller
             $charges->max_weight = $request->max_weight;
             $charges->charges = $request->charges;
             $charges->save();
-            return $this->index();
+            $user = Auth::user();
+            $data = DeliveryCharge::where('seller_id', $user->id)->get();
+            return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $e) {
             return response()->json(['status' => true, 'data' => $e->getMessage()]);
         } 
@@ -129,6 +133,8 @@ class DeliveryChargesController extends Controller
     public function destroy($id)
     {
         DeliveryCharge::find($id)->delete();
-        return $this->index();
+        $user = Auth::user();
+        $data = DeliveryCharge::where('seller_id', $user->id)->get();
+        return response()->json(['status' => true, 'data' => $data]);
     }
 }
