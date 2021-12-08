@@ -60,7 +60,7 @@ class OrderController extends Controller
                 $order->number = date("y").$cart->seller->seller_number.$orderCount;
                 $order->seller_id = $cart->seller_id;
                 $order->customer_id = $user->id;
-                $order->delivery_address = 'address';
+                // $order->delivery_address = 'address';
                 $order->save();
 
                 foreach($cart->details as $detail){
