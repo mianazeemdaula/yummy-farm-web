@@ -18,6 +18,7 @@ class CreateCartDetailsTable extends Migration
             $table->unsignedBigInteger('cart_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('qty')->default(1);
+            $table->double('charges')->default(0.0);
             $table->enum('delivery_type', ['take_away', 'delivery'])->nullable();
             $table->date('delivery_date')->nullable();
             $table->timestamps();

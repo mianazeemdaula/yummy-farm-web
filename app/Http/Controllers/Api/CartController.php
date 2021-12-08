@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\CartDetail;
 use App\Models\User;
+use App\Models\DeliveryCharge;
 
 class CartController extends Controller
 {
@@ -50,11 +51,18 @@ class CartController extends Controller
             $cart->seller_id = $product->seller_id;
             $cart->customer_id = $auth->id;
             $cart->save();
+            $totalWeight = $request->qty * $product->weight;
+            $charges = 0.0;
+            $dvCharges = DeliveryCharge::where('seller_id',$product->seller_id)->where('min_weight','>=', $totalWeight) ->where('max_weight','<=',$totalWeight)->first();
+            if($dvCharges){
+                $charges = $dvCharges->charges;
+            }
             $detail = new CartDetail;
             $detail->cart_id = $cart->id;
             $detail->product_id = $product->id;
             $detail->delivery_type = $request->method;
             $detail->qty = $request->qty;
+            $detail->charges = $request->charges;
             $detail->save();
         }else{
             $item = CartDetail::where('cart_id', $cartData->id)->where('product_id', $product->id)->first();

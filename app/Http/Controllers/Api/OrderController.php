@@ -9,6 +9,7 @@ use App\Models\Cart;
 use App\Models\CartDetail;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -67,11 +68,14 @@ class OrderController extends Controller
                     $item->order_id = $order->id;
                     $item->product_id = $detail->product_id;
                     $item->qty = $detail->qty;
+                    $item->delivery_type = $detail->delivery_type;
+                    $item->delivery_charges = $detail->charges;
                     $item->price = $detail->product->price;
                     $item->save();
                     $detailsIds[] = $detail->id;
+                    $detail->product()->update(['stock' => $detail->product->stock - $detail->qty]);
                 }
-                // Mail::to($request->user())->send(new OrderShipped($order));
+                Mail::to($cart->seller_id)->send(new \App\Mail\OrderGenerated($order));
             }
             Cart::whereIn('id', $carts->pluck('id'))->delete();
             CartDetail::whereIn('id', $detailsIds)->delete();
