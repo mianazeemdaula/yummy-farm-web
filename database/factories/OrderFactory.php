@@ -10,7 +10,7 @@ $factory->define(App\Models\Order::class, function (Faker $faker) {
         'seller_id' => 3,
         'customer_id' => 4,
         'number' => '21003'.$this->faker->randomNumber(4,true),
-        'delivery_address' => $this->faker->streetAddress(),
+        // 'delivery_address' => $this->faker->streetAddress(),
         'extra_note' => $this->faker->sentence(2),
     ];
 });
