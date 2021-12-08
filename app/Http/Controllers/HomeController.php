@@ -25,6 +25,10 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::count();
+        $auth = $auth = auth()->user();
+        if($auth->role == 'seller' || $auth->role == 'customer' ){
+            abort(429,'You are not authorized');
+        }
         $orders  = \App\Models\Order::count();
         $categories  = \App\Models\Category::count();
         $products = \App\Models\Product::count();
