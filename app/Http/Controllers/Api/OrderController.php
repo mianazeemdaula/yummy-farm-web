@@ -75,7 +75,7 @@ class OrderController extends Controller
                     $detailsIds[] = $detail->id;
                     $detail->product()->update(['stock' => $detail->product->stock - $detail->qty]);
                 }
-                Mail::to($cart->seller_id)->send(new \App\Mail\OrderGenerated($order));
+                Mail::to($cart->seller->email)->send(new \App\Mail\OrderGenerated($order));
             }
             Cart::whereIn('id', $carts->pluck('id'))->delete();
             CartDetail::whereIn('id', $detailsIds)->delete();
