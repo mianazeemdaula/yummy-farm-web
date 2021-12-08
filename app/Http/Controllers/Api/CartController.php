@@ -46,23 +46,26 @@ class CartController extends Controller
         $product = Product::findOrFail($request->product_id);
         $auth = $request->user();
         $cartData =  Cart::where('seller_id',$product->seller_id)->where('customer_id',$auth->id)->first();
+        $charges = 0.0;
+        if($request->method == 'delivery'){
+            $totalWeight = $request->qty * $product->weight;
+            $dvCharges = DeliveryCharge::where('seller_id',$product->seller_id)->where('min_weight','>=', $totalWeight) ->where('max_weight','<=',$totalWeight)->first();
+            if($dvCharges){
+                $charges = $dvCharges->charges;
+            }
+        }
+        
         if(!$cartData){
             $cart = new Cart;
             $cart->seller_id = $product->seller_id;
             $cart->customer_id = $auth->id;
             $cart->save();
-            $totalWeight = $request->qty * $product->weight;
-            $charges = 0.0;
-            $dvCharges = DeliveryCharge::where('seller_id',$product->seller_id)->where('min_weight','>=', $totalWeight) ->where('max_weight','<=',$totalWeight)->first();
-            if($dvCharges){
-                $charges = $dvCharges->charges;
-            }
             $detail = new CartDetail;
             $detail->cart_id = $cart->id;
             $detail->product_id = $product->id;
             $detail->delivery_type = $request->method;
             $detail->qty = $request->qty;
-            $detail->charges = $request->charges;
+            $detail->charges = $charges;
             $detail->save();
         }else{
             $item = CartDetail::where('cart_id', $cartData->id)->where('product_id', $product->id)->first();
@@ -72,8 +75,17 @@ class CartController extends Controller
                 $detail->product_id = $product->id;
                 $detail->delivery_type = $request->method;
                 $detail->qty = $request->qty;
+                $detail->charges = $charges;
                 $detail->save();
             }else{
+                $charges = 0.0;
+                if($request->method == 'delivery'){
+                    $totalWeight = ($item->qty + $request->qty) * $product->weight;
+                    $dvCharges = DeliveryCharge::where('seller_id',$product->seller_id)->where('min_weight','>=', $totalWeight) ->where('max_weight','<=',$totalWeight)->first();
+                    if($dvCharges){
+                        $charges = $dvCharges->charges;
+                    }
+                }
                 $item->qty = $item->qty + $request->qty;
                 $item->save();
             }
