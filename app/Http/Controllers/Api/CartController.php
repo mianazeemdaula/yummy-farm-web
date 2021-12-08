@@ -53,6 +53,8 @@ class CartController extends Controller
             $detail = new CartDetail;
             $detail->cart_id = $cart->id;
             $detail->product_id = $product->id;
+            $detail->delivery_type = $request->method;
+            $detail->qty = $request->qty;
             $detail->save();
         }else{
             $item = CartDetail::where('cart_id', $cartData->id)->where('product_id', $product->id)->first();
@@ -60,9 +62,11 @@ class CartController extends Controller
                 $detail = new CartDetail;
                 $detail->cart_id = $cartData->id;
                 $detail->product_id = $product->id;
+                $detail->delivery_type = $request->method;
+                $detail->qty = $request->qty;
                 $detail->save();
             }else{
-                $item->qty = $item->qty + 1;
+                $item->qty = $item->qty + $request->qty;
                 $item->save();
             }
             
