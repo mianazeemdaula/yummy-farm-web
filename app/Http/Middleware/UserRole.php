@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 use Closure;
 
@@ -15,12 +16,10 @@ class UserRole
      */
     public function handle($request, Closure $next, $roles)
     {
-        if (!Auth::check())
-            return redirect('login');
-        $user = Auth::user();
+        $user = $request->user();
         $roles = explode(',', $roles);
         if(in_array($user->role, $roles))
             return $next($request);
-        return redirect('login');
+        return abort(401,'unathorized');
     }
 }

@@ -20,30 +20,25 @@ Route::get('data/{id}', function($id){
     return App\Models\Order::with(['seller', 'customer', 'details.product'])->find($id);
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','role:admin,super-admin'])->group(function () {
+
     Route::get('/home', 'HomeController@index')->name('home');
-
-
     Route::resource('user','UserController');
     Route::resource('category','CategoryController');
     Route::resource('sub.category','SubCategoryController');
 
-    Route::middleware(['role:admin'])->group(function () {
-        Route::prefix('admin')->group(function () {
-            //Route::resource('role','RoleController');
-            // Route::resource('permission','PermissionController');
-           // Route::resource('user','UserController');
-            //Route::resource('expense','ExpenseController');
-        });
+    Route::prefix('admin')->group(function () {
+        //Route::resource('role','RoleController');
+        // Route::resource('permission','PermissionController');
+    // Route::resource('user','UserController');
+        //Route::resource('expense','ExpenseController');
     });
-
-    // Route::resource('recipe','RecipeController');
 
     Route::get('admin/password','UserController@getPassword');
     Route::post('admin/password','UserController@postPassword');
+    
 });
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

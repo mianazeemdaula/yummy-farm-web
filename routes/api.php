@@ -21,12 +21,12 @@ Route::middleware('auth:sanctum')->get('/user-t', function (Request $request) {
 });
 
 Route::get('notif/{id}', function ($id) {
-
-return Fcm::sendNotification(Notifications::find($id));
+    return Fcm::sendNotification(Notifications::find($id));
 });
 Route::post('auth/login', 'Api\AuthController@login');
 Route::post('auth/register', 'Api\AuthController@register');
 Route::post('auth/reset-password', 'Api\AuthController@sendPasswordResetEmail');
+Route::post('auth/change-password', 'Api\AuthController@resetPassword');
 
 // Social Login
 Route::post('auth/sociallogin', 'Api\AuthController@sociallogin');
@@ -56,8 +56,6 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('orders', 'Api\OrderController');
     Route::resource('charges', 'Api\DeliveryChargesController');
 
-    // Libaries
-    Route::resource('library', 'Api\LibraryController');
 
     // Inbox
     Route::resource('inbox', 'Api\InboxController');
