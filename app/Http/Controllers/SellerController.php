@@ -105,8 +105,9 @@ class SellerController extends Controller
         return redirect()->back()->with('status', 'Seller Updated!');
     }
 
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::find($id);
         return view('admin.seller.view', compact('user'));
     }
 

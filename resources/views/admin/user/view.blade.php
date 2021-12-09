@@ -35,27 +35,14 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td>
-                                    <strong>User Name:</strong>
-                                </td>
-                                <td>
-                                    <span>{{ $user->username }}</span>
-                                </td>
-                            </tr>
-
                             <tr><td><strong>User Name:</strong> </td><td> <span>{{ $user->username }}</span></td></tr>
-                            <tr><td><strong>Business Name:</strong> </td><td> <span>{{ $user->business_name }}</span></td></tr>
-                            <tr><td><strong>Seller #:</strong> </td><td> <span>{{ $user->seller_number }}</span></td></tr>
                             <tr><td><strong>Address:</strong> </td><td> <span>{{ $user->address }}</span></td></tr>
                             <tr><td><strong>Address Line 2:</strong> </td><td> <span>{{ $user->address_line_2 }}</span></td></tr>
                             <tr><td><strong>Country:</strong> </td><td> <span>{{ $user->country }}</span></td></tr>
                             <tr><td><strong>Phone:</strong> </td><td> <span>{{ $user->phone }}</span></td></tr>
                             <tr><td><strong>VAT:</strong> </td><td> <span>{{ $user->vat }}</span></td></tr>
                             <tr><td><strong>Bank Account:</strong> </td><td> <span>{{ $user->bank_account }}</span></td></tr>
-                            <tr><td><strong>Description:</strong> </td><td> <span>{{ $user->description }}</span></td></tr>
                             <tr><td><strong>Last Update:</strong> </td><td> <span>{{ $user->updated_at }}</span></td></tr>
-
                             <tr>
                                 <td>
                                     <strong>Email:</strong>
