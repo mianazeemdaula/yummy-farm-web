@@ -11,15 +11,19 @@
                 </div>
             @endif
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        {{ \App\Models\Category::find($id)->name }}
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <div class="py-2">
-                        <a href="{{ route('sub.category.create', $id) }}" class="btn btn-primary" >Create Sub Category</a>
+                <div class="p-2 d-flex justify-content-between align-items-center">
+                    <h5 class="">
+                        {{ \App\Models\Category::find($id)->name }} 
+                    </h5>
+                    <div class="btn-group">
+                        <a href="{{ route('sub.category.create', $id) }}" type="button" class="btn btn-default">Create</a>
+                         {{-- <button type="button" class="btn btn-default">SubCategories</button> --}}
+                        {{-- <button type="button" class="btn btn-default">Excel</button> --}}
                     </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
                     <table class="table table-sm dataTable" id="example1">
                         <thead>
                             <tr>
@@ -38,7 +42,7 @@
                                     <td>
                                       <div class="btn-group">
                                         {{-- <a href="{{ route('sub.category.index',[$item->id]) }}" class="btn-sm btn-default"><i class="fas fa-eye"></i></a> --}}
-                                        <a href="{{ route('category.edit',[$item->id]) }}" type="button" class="btn-sm btn-default"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('sub.category.edit',[$item->super_category_id,$item->id]) }}" type="button" class="btn-sm btn-default"><i class="fas fa-edit"></i></a>
                                         {{-- <a href="#" class="btn-sm btn-default"><i class="fas fa-trash"></i></a> --}}
                                       </div>
                                     </td>

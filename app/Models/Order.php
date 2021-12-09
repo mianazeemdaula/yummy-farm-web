@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
 
+    protected $appends = [
+        'total_qty', 'total_charges', 'total_price'
+    ];
+
     public function seller()
     {
         return $this->belongsTo(User::class,'seller_id');
@@ -20,5 +24,20 @@ class Order extends Model
     public function details()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    public function getTotalQtyAttribute()
+    {
+        return $this->details()->sum('qty');
+    }
+
+    public function getTotalPriceAttribute()
+    {
+        return round($this->details()->sum(\DB::raw('qty * price')),2);
+    }
+
+    public function getTotalChargesAttribute()
+    {
+        return round($this->details()->sum('delivery_charges'),2);
     }
 }

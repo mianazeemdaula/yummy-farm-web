@@ -10,6 +10,7 @@ use App\Models\CartDetail;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -117,7 +118,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $orders = Order::whereIn('id',$request->ids)->update(['status' => 'delivered']);
+        $orders = Order::whereIn('id',$request->ids)->update(['status' => 'delivered', 'delivery_date' => Carbon::now()]);
         return $this->index();
     }
 

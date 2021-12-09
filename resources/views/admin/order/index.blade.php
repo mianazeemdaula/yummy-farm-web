@@ -13,11 +13,11 @@
 
             <div class="card">
                 <div class="p-2 d-flex justify-content-between align-items-center">
-                    <h5 class="">Users</h5>
+                    <h5 class="">Orders</h5>
                     <div class="btn-group">
                         {{-- <a href="{{ route('category.create') }}" type="button" class="btn btn-default">Create</a> --}}
                          {{-- <button type="button" class="btn btn-default">SubCategories</button> --}}
-                         <a target="_blank" href="{{ url('export/users') }}" type="button" class="btn btn-default">Export</a>
+                        <a target="_blank" href="{{ url('export/orders') }}" type="button" class="btn btn-default">Export</a>
                     </div>
                 </div>
             </div>
@@ -27,11 +27,13 @@
                     <table class="table table-sm dataTable" id="example1">
                         <thead>
                             <tr>
-                                <th>ID #</th>
-                                <th>Avatar</th>
-                                <th>Username</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>#</th>
+                                <th>Seller</th>
+                                <th>Customer</th>
+                                <th>Delivery</th>
+                                <th>Payment</th>
+                                <th>Total</th>
+                                <th>Status</th>
                                 <th>Last Update</th>
                                 <th>Action</th>
                             </tr>
@@ -39,22 +41,18 @@
                         <tbody>
                             @foreach ($collection as $item)
                                 <tr>
-                                    <td> {{ $item->id}} </td>
-                                    <td> <img src="{{ $item->image}}" width="40" alt="" class="rounded-circle" srcset=""> </td>
-                                    <td> {{ $item->username}} </td>
-                                    <td> {{ $item->name}} </td>
-                                    <td> {{ $item->email}} </td>
+                                    <td> {{ $item->number}} </td>
+                                    <td> {{ $item->seller->name}} </td>
+                                    <td> {{ $item->customer->name}} </td>
+                                    <td> {{ $item->delivery_date }} </td>
+                                    <td> {{ $item->payment_date}} </td>
+                                    <td> {{ $item->total_price}} €</td>
+                                    <td> {{ $item->status}} </td>
                                     <td> {{ $item->updated_at}} </td>
                                     <td>
                                       <div class="btn-group">
-                                        <a href="{{ route('user.show',[$item->id]) }}" class="btn-sm btn-default"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ route('user.edit',[$item->id]) }}" type="button" class="btn-sm btn-default"><i class="fas fa-edit"></i></a>
-
-                                        <a href="#" class="btn-sm btn-default delete-user"><i class="fas fa-trash"></i></a>
-                                            <form method="POST" action="{{ route('user.destroy', $item->id) }}">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                            </form>
+                                        <a href="{{ route('order.show',[$item->id]) }}" class="btn-sm btn-default"><i class="fas fa-eye"></i></a>
+                                        
                                       </div>
                                     </td>
                                 </tr>

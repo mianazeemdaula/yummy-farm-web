@@ -42,31 +42,32 @@ class SubCategoryController extends Controller
         $category->name = $request->name;
         $category->super_category_id = $id;
         $category->save();
-        return redirect()->route('sub.category.index', $id)->with('status', 'Category Created Successfully!');
+        return redirect()->route('sub.category.index', $id)->with('status', 'SubCategory Created Successfully!');
     }
 
-    public function edit($id)
+    public function edit($cat, $id)
     {
         $category = Category::findOrFail($id);
         $form = $this->form(CategoryForm::class, [
             'method' => 'PUT',
             'class' => 'form-horizontal',
-            'url' => route('sub.category.update', [$id]),
+            'url' => route('sub.category.update', [$cat,$id]),
             'model' => $category
         ]);
 
         return view('admin.subcategory.edit', compact('form', 'category'));
     }
 
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $cat, $id)
     {
         $form = $this->form(CategoryForm::class);
         if (!$form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
+        $category = Category::find($id);
         $category->name = $request->name;
         $category->save();
-        return redirect()->back()->with('status', 'Category Updated!');
+        return redirect()->back()->with('status', 'SubCategory Updated!');
     }
 
     /**
@@ -75,8 +76,9 @@ class SubCategoryController extends Controller
      * @param  \App\Models\InstrumentCategory  $instrumentCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InstrumentCategory $instrumentCategory)
+    public function destroy($cat, $id)
     {
-        //
+        Category::find($id)->delete();
+        return redirect()->back()->with('status', 'SubCategory Deleted!');
     }
 }

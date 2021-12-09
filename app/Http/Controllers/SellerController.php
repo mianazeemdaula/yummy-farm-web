@@ -14,19 +14,13 @@ use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
-
-use App\Exports\RecipesExport;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Models\Student;
-use App\Models\Tutor;
-
-class UserController extends Controller
+class SellerController extends Controller
 {
     use FormBuilderTrait;
     public function index()
     {
-        $collection = User::where('id','>',2)->where('role','customer')->get();
-        return view('admin.user.index', compact('collection'));
+        $collection = User::where('id','>',2)->where('role','seller')->get();
+        return view('admin.seller.index', compact('collection'));
     }
 
     public function create()
@@ -36,7 +30,7 @@ class UserController extends Controller
             'class' => 'form-horizontal',
             'url' => route('user.store')
         ]);
-        return view('admin.user.create', compact('form'));
+        return view('admin.seller.create', compact('form'));
     }
 
     public function store(Request $request)
@@ -58,7 +52,7 @@ class UserController extends Controller
             $user->image = $name;
         }
         $user->save();
-        return redirect()->route('user.index')->with('status', 'User Created Successfully!');
+        return redirect()->route('seller.index')->with('status', 'Seller Created Successfully!');
     }
 
     public function edit($id)
@@ -71,7 +65,7 @@ class UserController extends Controller
             'model' => $user
         ]);
 
-        return view('admin.user.edit', compact('form', 'user'));
+        return view('admin.seller.edit', compact('form', 'user'));
     }
 
     public function update(Request $request, $id)
@@ -108,53 +102,19 @@ class UserController extends Controller
         //     $user->image = $name;
         // }
         $user->save();
-        return redirect()->back()->with('status', 'User Updated!');
+        return redirect()->back()->with('status', 'Seller Updated!');
     }
 
     public function show(User $user)
     {
-        return view('admin.user.view', compact('user'));
+        return view('admin.seller.view', compact('user'));
     }
 
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->back()->with('status', 'User Deleted!');
+        return redirect()->back()->with('status', 'Seller Deleted!');
     }
 
-    public function getPassword()
-    {
-        $form = $this->form(ChangePasswordForm::class, [
-            'method' => 'POST',
-            'class' => 'form-horizontal',
-            'url' => url('admin/password')
-        ]);
-        return view('admin.user.password', compact('form'));
-    }
-
-    public function postPassword(Request $request)
-    {
-
-        $form = $this->form(ChangePasswordForm::class);
-
-        if (!$form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
-        }
-
-        $current_password = Auth::User()->password;
-        if (Hash::check($request->old_password, $current_password)) {
-            $user_id = Auth::User()->id;
-            $obj_user = User::find($user_id);
-            $obj_user->password = Hash::make($request->password);
-            $obj_user->save();
-            return redirect()->back()->with('status', 'Password updated successfully!');
-        } else {
-            return redirect()->back()->withErrors(['old_password' => 'Please enter correct password'])->withInput();
-        }
-    }
-
-    public function export()
-    {
-        return Excel::download(new RecipesExport, 'users.xlsx');
-    }
+    
 }

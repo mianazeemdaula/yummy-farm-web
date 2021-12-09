@@ -20,7 +20,9 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->string('extra_note')->nullable();
             $table->char('status', 20)->default('open');
+            $table->dateTime('delivery_date')->nullable();
             $table->string('payment_id')->nullable();
+            $table->dateTime('payment_date')->nullable();
             $table->timestamps();
         });
     }

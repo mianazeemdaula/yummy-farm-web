@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
-                        SubCategory Form
+                        Seller Form
                     </h3>
                 </div>
                 {!! form_start($form) !!}
@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-info">Update</button>
-                    <a  class="btn btn-default float-right" href="{{ route('category.index') }}">Cancel</a>
+                    <a  class="btn btn-default float-right" href="{{ route('user.index') }}">Cancel</a>
                 </div>
                 {!! form_end($form) !!}
             </div>

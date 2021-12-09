@@ -80,8 +80,9 @@ class CategoryController extends Controller
      * @param  \App\Models\InstrumentCategory  $instrumentCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InstrumentCategory $instrumentCategory)
+    public function destroy($id)
     {
-        //
+        Category::find($id)->delete();
+        return redirect()->back()->with('status', 'Category Deleted!');
     }
 }

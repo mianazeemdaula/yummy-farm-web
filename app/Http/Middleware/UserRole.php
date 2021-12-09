@@ -18,8 +18,10 @@ class UserRole
     {
         $user = $request->user();
         $roles = explode(',', $roles);
-        if(in_array($user->role, $roles))
+        if(in_array($user->role, $roles)){
             return $next($request);
+        }
+        Auth::logout();
         return abort(401,'unathorized');
     }
 }

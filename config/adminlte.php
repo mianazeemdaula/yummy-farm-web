@@ -231,11 +231,36 @@ return [
             'icon'        => 'fas fa-users',
             'permission' => 'super-admin|admin'
         ],
+
+        [
+            'text'        => 'Seller',
+            'route'         => 'seller.index',
+            'icon'        => 'fas fa-store',
+            'permission' => 'super-admin|admin'
+        ],
         
         [
             'text'        => 'Category',
             'route'         => 'category.index',
             'icon'        => 'fas fa-project-diagram',
+            'permission' => 'super-admin|admin'
+        ],
+        [
+            'text'        => 'Orders',
+            'route'         => 'order.index',
+            'icon'        => 'fas fa-shopping-cart',
+            'permission' => 'super-admin|admin'
+        ],
+        [
+            'text'        => 'Payments',
+            'route'         => 'payment.index',
+            'icon'        => 'fas fa-receipt',
+            'permission' => 'super-admin|admin'
+        ],
+        [
+            'text'        => 'Chats',
+            'route'         => 'chat.index',
+            'icon'        => 'fas fa-envelope',
             'permission' => 'super-admin|admin'
         ],
         ['header' => 'Setttings'],

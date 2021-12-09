@@ -11,15 +11,19 @@
                 </div>
             @endif
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">
+                <div class="p-2 d-flex justify-content-between align-items-center">
+                    <h5 class="">
                         Catgories
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <div class="py-2">
-                        <a href="{{ route('category.create') }}" class="btn btn-primary" >Create Category</a>
+                    </h5>
+                    <div class="btn-group">
+                        <a href="{{ route('category.create') }}" type="button" class="btn btn-default">Create</a>
+                         {{-- <button type="button" class="btn btn-default">SubCategories</button> --}}
+                        {{-- <button type="button" class="btn btn-default">Excel</button> --}}
                     </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
                     <table class="table table-sm dataTable" id="example1">
                         <thead>
                             <tr>
@@ -39,7 +43,11 @@
                                       <div class="btn-group">
                                         <a href="{{ route('sub.category.index',[$item->id]) }}" class="btn-sm btn-default"><i class="fas fa-eye"></i></a>
                                         <a href="{{ route('category.edit',[$item->id]) }}" type="button" class="btn-sm btn-default"><i class="fas fa-edit"></i></a>
-                                        {{-- <a href="#" class="btn-sm btn-default"><i class="fas fa-trash"></i></a> --}}
+                                        <a href="#" class="btn-sm btn-default delete-user"><i class="fas fa-trash"></i></a>
+                                            <form method="POST" action="{{ route('category.destroy', $item->id) }}">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                            </form>
                                       </div>
                                     </td>
                                 </tr>
@@ -57,6 +65,13 @@
 <script>
 $(function () {
     $("#example1").DataTable();
+    $('.delete-user').click(function(e){
+        e.preventDefault() // Don't post the form, unless confirmed
+        if (confirm('Are you sure?')) {
+            // Post the form
+            $(this).siblings('form').submit() // Post the surrounding form
+        }
+    });
 });
 </script>
 @endsection

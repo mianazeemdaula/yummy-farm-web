@@ -13,11 +13,11 @@
 
             <div class="card">
                 <div class="p-2 d-flex justify-content-between align-items-center">
-                    <h5 class="">Users</h5>
+                    <h5 class="">Sellers</h5>
                     <div class="btn-group">
                         {{-- <a href="{{ route('category.create') }}" type="button" class="btn btn-default">Create</a> --}}
                          {{-- <button type="button" class="btn btn-default">SubCategories</button> --}}
-                         <a target="_blank" href="{{ url('export/users') }}" type="button" class="btn btn-default">Export</a>
+                        <a target="_blank" href="{{ url('export/sellers') }}" type="button" class="btn btn-default">Export</a>
                     </div>
                 </div>
             </div>
@@ -32,6 +32,7 @@
                                 <th>Username</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Status</th>
                                 <th>Last Update</th>
                                 <th>Action</th>
                             </tr>
@@ -44,14 +45,15 @@
                                     <td> {{ $item->username}} </td>
                                     <td> {{ $item->name}} </td>
                                     <td> {{ $item->email}} </td>
+                                    <td> {{ $item->status}} </td>
                                     <td> {{ $item->updated_at}} </td>
                                     <td>
                                       <div class="btn-group">
-                                        <a href="{{ route('user.show',[$item->id]) }}" class="btn-sm btn-default"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ route('user.edit',[$item->id]) }}" type="button" class="btn-sm btn-default"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('seller.show',[$item->id]) }}" class="btn-sm btn-default"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('seller.edit',[$item->id]) }}" type="button" class="btn-sm btn-default"><i class="fas fa-edit"></i></a>
 
                                         <a href="#" class="btn-sm btn-default delete-user"><i class="fas fa-trash"></i></a>
-                                            <form method="POST" action="{{ route('user.destroy', $item->id) }}">
+                                            <form method="POST" action="{{ route('seller.destroy', $item->id) }}">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
                                             </form>
