@@ -28,7 +28,7 @@ class SellerController extends Controller
         $form = $this->form(UserForm::class, [
             'method' => 'POST',
             'class' => 'form-horizontal',
-            'url' => route('user.store')
+            'url' => route('seller.store')
         ]);
         return view('admin.seller.create', compact('form'));
     }
@@ -61,7 +61,7 @@ class SellerController extends Controller
         $form = $this->form(UserEditForm::class, [
             'method' => 'PUT',
             'class' => 'form-horizontal',
-            'url' => route('user.update', [$id]),
+            'url' => route('seller.update', [$id]),
             'model' => $user
         ]);
 
